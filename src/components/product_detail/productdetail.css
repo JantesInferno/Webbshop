@@ -1,0 +1,14 @@
+.productDetailImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 375px;
+}
+.productDetailImageContainer .productDetailImage {
+  margin-top: 25px;
+  display: flex;
+  height: auto;
+  max-height: 350px;
+  width: auto;
+  max-width: 350px;
+}/*# sourceMappingURL=productdetail.css.map */

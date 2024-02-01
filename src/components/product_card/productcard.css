@@ -1,0 +1,19 @@
+.productImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: auto;
+}
+.productImageContainer .productImage {
+  float: left;
+  width: 150px;
+  height: 200px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.cardActionArea:hover {
+  background-color: #111;
+  cursor: pointer;
+}/*# sourceMappingURL=productcard.css.map */

@@ -1,0 +1,23 @@
+
+.productImageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: auto;
+    
+
+    .productImage {
+        float: left;
+        width: 150px;
+        height: 200px;
+        object-fit:contain;
+    }
+}
+
+.cardActionArea {
+    &:hover {
+        background-color: #111;
+        cursor: pointer;
+    }
+}

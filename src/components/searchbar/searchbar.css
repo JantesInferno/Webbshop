@@ -1,0 +1,92 @@
+.searchAutoCompleteContainer {
+  position: relative;
+  width: 25%;
+  height: 100%;
+  top: 25%;
+}
+.searchAutoCompleteContainer .searchContainer {
+  display: flex;
+  width: 100%;
+  height: 50%;
+  align-items: center;
+  background-color: #1d1d1d;
+  border-radius: 25px;
+}
+.searchAutoCompleteContainer .searchContainer:focus-within {
+  outline: 2px solid white;
+  border: none;
+}
+.searchAutoCompleteContainer .searchContainer .searchInput {
+  display: inline-block;
+  width: 90%;
+  font-size: 1.1em;
+  background-color: inherit;
+  border: none;
+  padding: 5px;
+  padding-left: 25px;
+  border-radius: 25px;
+}
+.searchAutoCompleteContainer .searchContainer .searchInput:focus {
+  outline: none;
+}
+.searchAutoCompleteContainer .searchContainer .searchButton {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: inherit;
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.searchAutoCompleteContainer .searchContainer .searchButton:hover {
+  background-color: #226e36;
+}
+.searchAutoCompleteContainer .searchContainer .searchButton:hover .searchIcon {
+  margin: 5px;
+}
+.searchAutoCompleteContainer .searchContainer .searchButton .searchIcon {
+  margin: 5px;
+}
+.searchAutoCompleteContainer .searchContainerAutoComplete {
+  display: flex;
+  width: 100%;
+  height: 50%;
+  align-items: center;
+  background-color: #1d1d1d;
+  border-radius: 25px 25px 0 0;
+}
+.searchAutoCompleteContainer .searchContainerAutoComplete:focus-within {
+  outline: 2px solid white;
+  border: none;
+}
+.searchAutoCompleteContainer .searchContainerAutoComplete .searchInput {
+  display: inline-block;
+  width: 90%;
+  font-size: 1.1em;
+  background-color: inherit;
+  border: none;
+  padding: 5px;
+  padding-left: 25px;
+  border-radius: 25px;
+}
+.searchAutoCompleteContainer .searchContainerAutoComplete .searchInput:focus {
+  outline: none;
+}
+.searchAutoCompleteContainer .searchContainerAutoComplete .searchButton {
+  height: 40px;
+  width: 40px;
+  border-radius: 0 50% 0 0;
+  background-color: inherit;
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.searchAutoCompleteContainer .searchContainerAutoComplete .searchButton:hover {
+  background-color: #226e36;
+}
+.searchAutoCompleteContainer .searchContainerAutoComplete .searchButton:hover .searchIcon {
+  margin: 5px;
+}
+.searchAutoCompleteContainer .searchContainerAutoComplete .searchButton .searchIcon {
+  margin: 5px;
+}/*# sourceMappingURL=searchbar.css.map */
