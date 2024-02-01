@@ -22,7 +22,7 @@ const SearchBar = () => {
 
     const handleOutsideClick = (e) => {
       if (!searchRef.current.contains(e.target)) {
-      setShowAutoComplete(false);
+        setShowAutoComplete(false);
       }
     }
 
@@ -32,6 +32,7 @@ const SearchBar = () => {
              <div className={showAutoComplete ? "searchContainerAutoComplete" : "searchContainer"}>
                 <input type='text' className='searchInput' onChange={handleAutoComplete} onKeyDown={handleAutoComplete} ref={inputRef}/>
                 <div className='searchButton' onClick={() => {
+                  setShowAutoComplete(false);
                   searchProducts(inputRef.current.value);
                   navigate('/');
                   }}>

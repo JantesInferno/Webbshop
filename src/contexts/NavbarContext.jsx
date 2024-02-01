@@ -6,8 +6,8 @@ export const NavbarContext = createContext();
 
 export const NavbarContextProvider = ({children}) => {
     
-    const {productsAutocomplete} = useContext(DBContext);
-    
+    const {productsAutocomplete, searchProducts} = useContext(DBContext);
+
     const [anchorCart, setAnchorCart] = useState(null);
     const [anchorLogin, setAnchorLogin] = useState(null);
     const [suggestions, setSuggestions] = useState([]);

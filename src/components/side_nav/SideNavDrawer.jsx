@@ -6,14 +6,17 @@ import MouseIcon from '@mui/icons-material/Mouse';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import './sidenav.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { DBContext } from '../../contexts/DBContext';
+import './sidenav.css';
+import utf8 from "utf8";
 
 const SideNavDrawer = () => {
 
     const { getCategoryProducts } = useContext(DBContext);
     const navigate = useNavigate();
+    const location = useLocation();
 
     const menuItems = [
         {
@@ -59,7 +62,9 @@ const SideNavDrawer = () => {
                 <List sx={{ marginTop: '-6px' }}>
                     { menuItems.map(item => (
                         <div key={item.text}>
-                                <ListItem  button sx={{ color: 'white', width: '90%', margin: '0 auto',  border: '2px solid transparent', ':hover': { bgcolor: '#111', borderLeft: '2px solid #226e36'}}} onClick={() => {
+                                <ListItem button className={'active'} sx={{ bgcolor: location.pathname == `/${item.text}/` ? '#111' : null , color: 'white', width: '90%', margin: '0 auto',  border: '2px solid transparent',  ':hover': { bgcolor: '#111', borderLeft: '2px solid #226e36'}}} onClick={() => {
+                                    console.log(location.pathname);
+                                    console.log(location.pathname == `/${item.text}/`)
                                     getCategoryProducts(item.text);
                                 }}>
                                     <ListItemIcon >{item.icon}</ListItemIcon>

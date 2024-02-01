@@ -1,12 +1,15 @@
 import { Button, Divider, Drawer, IconButton, TextField, Tooltip, Typography } from '@mui/material';
-import { AppContext } from '../../contexts/AppContext';
 import { useContext, useState } from 'react';
 import './login.css';
 import { Link } from 'react-router-dom';
+import { NavbarContext } from '../../contexts/NavbarContext';
+import { DBContext } from '../../contexts/DBContext';
 
 const Login = () => {
 
-    const {anchorLogin, handleCloseLoginMenu, signInUser} = useContext(AppContext);
+    const {anchorLogin, handleCloseLoginMenu} = useContext(NavbarContext);
+    const {signInUser} = useContext(DBContext);
+    
     const [email, setEmail] = useState({ value: ''});
     const [password, setPassword] = useState({ value: ''});
     const [isError, setIsError] = useState(false);
