@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { AppContext } from "../../contexts/AppContext";
+import { CartContext } from "../../contexts/CartContext";
 import { DBContext } from "../../contexts/DBContext";
 import { useContext, useEffect} from "react";
 import { Card, CardContent, IconButton, Typography } from "@mui/material";
@@ -10,7 +10,7 @@ const ProductDetail = () => {
 
     const {productId} = useParams();
     const {data} = useContext(DBContext);
-    const {addToCart} = useContext(AppContext);
+    const {addToCart} = useContext(CartContext);
 
     const navigate = useNavigate();
 

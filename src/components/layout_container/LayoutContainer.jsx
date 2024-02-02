@@ -2,19 +2,15 @@ import { Grid, Typography } from "@mui/material";
 import { Container } from "@mui/material";
 import ProductCard from "../product_card/ProductCard";
 import { useContext, useState, useEffect } from "react";
-import { AppContext } from "../../contexts/AppContext";
+import { CartContext } from "../../contexts/CartContext";
 import { useParams } from "react-router-dom";
 import { DBContext } from "../../contexts/DBContext";
 
 const LayoutContainer = () => {
 
-    const {data} = useContext(DBContext);
-    const {addToCart} = useContext(AppContext);
     const {category} = useParams();
-
-    useEffect(() => {
-        console.log(data)
-     }, [data])
+    const {data} = useContext(DBContext);
+    const {addToCart} = useContext(CartContext);
 
     return(
         <>

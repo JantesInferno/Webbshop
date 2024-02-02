@@ -1,11 +1,28 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect} from 'react';
 
-export const AppContext = createContext();
+export const CartContext = createContext();
 
-export const AppContextProvider = ({children}) => {
+export const CartContextProvider = ({children}) => {
     
     const [cart, setCart] = useState([]);
     const [isItemDeleted, setIsItemDeleted] = useState(false);
+
+    useEffect(() => {
+
+      const storage = localStorage.getItem("ShoppingCart");
+      if (storage !== null) {
+        setCart(JSON.parse(storage));
+      }
+  
+    }, []);
+  
+    useEffect(() => {
+      if (cart.length > 0 || isItemDeleted) {
+        localStorage.setItem('ShoppingCart', JSON.stringify(cart));
+      }
+    }, [cart])
+
+    
 
     const addToCart = (item) => {
       const duplicates = cart.filter(product => {
@@ -39,13 +56,13 @@ export const AppContextProvider = ({children}) => {
     
   
     return (
-        <AppContext.Provider value={{ 
+        <CartContext.Provider value={{ 
             cart, setCart,
             isItemDeleted, setIsItemDeleted,
             addToCart, removeFromCart,
             removeItemFromQuantity
           }}>
         {children}
-      </AppContext.Provider>
+      </CartContext.Provider>
     )
   }

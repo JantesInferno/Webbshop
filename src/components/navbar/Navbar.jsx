@@ -14,15 +14,17 @@ import logo from '../../assets/topstyles_logo.png';
 import { useContext, useEffect, useState } from 'react';
 import Login from '../login/Login';
 import { Link, useNavigate } from 'react-router-dom';
-import { AppContext } from '../../contexts/AppContext';
+import { CartContext } from '../../contexts/CartContext';
 import { NavbarContext } from '../../contexts/NavbarContext';
 import { DBContext } from '../../contexts/DBContext';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const Navbar = () => {
 
-    const {cart, addToCart, removeFromCart, removeItemFromQuantity} = useContext(AppContext);
+    const {cart, addToCart, removeFromCart, removeItemFromQuantity} = useContext(CartContext);
     const {anchorCart, handleOpenCartMenu, handleCloseCartMenu, handleOpenLoginMenu} = useContext(NavbarContext);
-    const {signOutUser, currentUser, createOrder, searchProducts} = useContext(DBContext);
+    const {createOrder, searchProducts} = useContext(DBContext);
+    const {signOutUser, currentUser} = useContext(AuthContext);
 
     const [numOfCartItems, setNumOfCartItems] = useState(0);
     const [error, setError] = useState(false);
@@ -45,7 +47,7 @@ const Navbar = () => {
 
     const handleOrder = () => {
         if (currentUser != null) {
-            createOrder(cart)
+            createOrder(cart, currentUser);
         }
     }
 

@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from 'react';
-import { AppContext } from './AppContext';
 import { DBContext } from './DBContext';
 
 export const NavbarContext = createContext();
@@ -25,7 +24,6 @@ export const NavbarContextProvider = ({children}) => {
                     setShowAutoComplete(true);
                     return {title: d.title, id: d.id};
                 }
-
             })
             if (e.target.value.length > 0) {
                 setSuggestions(searchSuggestions);

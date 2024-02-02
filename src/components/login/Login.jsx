@@ -4,11 +4,12 @@ import './login.css';
 import { Link } from 'react-router-dom';
 import { NavbarContext } from '../../contexts/NavbarContext';
 import { DBContext } from '../../contexts/DBContext';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const Login = () => {
 
     const {anchorLogin, handleCloseLoginMenu} = useContext(NavbarContext);
-    const {signInUser} = useContext(DBContext);
+    const {signInUser} = useContext(AuthContext);
     
     const [email, setEmail] = useState({ value: ''});
     const [password, setPassword] = useState({ value: ''});
