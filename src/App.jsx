@@ -3,7 +3,6 @@ import LayoutContainer from './components/layout_container/LayoutContainer';
 import SideNavDrawer from './components/side_nav/SideNavDrawer';
 import Navbar from './components/navbar/Navbar';
 import { NavbarContextProvider } from './contexts/NavbarContext';
-import { CartContextProvider } from './contexts/CartContext';
 import Register from './components/register/Register';
 import './App.css'
 import ProductDetail from './components/product_detail/ProductDetail';

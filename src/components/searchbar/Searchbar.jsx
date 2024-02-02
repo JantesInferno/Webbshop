@@ -10,7 +10,7 @@ import { NavbarContext } from '../../contexts/NavbarContext';
 const SearchBar = () => {
 
     const {productsAutocomplete, searchProducts, data} = useContext(DBContext);
-    const {showAutoComplete, setShowAutoComplete, suggestions, setSuggestions, handleAutoComplete} = useContext(NavbarContext);
+    const {showAutoComplete, setShowAutoComplete, suggestions, handleAutoComplete} = useContext(NavbarContext);
 
     const navigate = useNavigate();
     const searchRef = useRef();
@@ -21,9 +21,10 @@ const SearchBar = () => {
     }, [])
 
     const handleOutsideClick = (e) => {
-      if (!searchRef.current.contains(e.target)) {
-        setShowAutoComplete(false);
-      }
+      if (searchRef.current != null)
+        if (!searchRef.current.contains(e.target)) {
+          setShowAutoComplete(false);
+        }
     }
 
     return(

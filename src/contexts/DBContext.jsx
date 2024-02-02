@@ -40,7 +40,7 @@ export const DBContextProvider = ({children}) => {
         setData(products);
         setProductsAutocomplete(productsTitleId);
       })
-    })
+    }, [])
 
     
     const createOrder = (cart, user) => {
@@ -82,7 +82,7 @@ export const DBContextProvider = ({children}) => {
 
     const getCategoryProducts = (category, path) => {
       setData([]);
-  
+      console.log(data);
       const q = query(collection(db, 'products'), where("category", "==", category))
   
       onSnapshot(q, (snapshot) => {

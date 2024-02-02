@@ -9,13 +9,13 @@ import { DBContext } from "../../contexts/DBContext";
 const LayoutContainer = () => {
 
     const {category} = useParams();
-    const {data} = useContext(DBContext);
+    const {data, searchTitle} = useContext(DBContext);
     const {addToCart} = useContext(CartContext);
 
     return(
         <>
             <Container sx={{marginY: '4%', marginX: '2%'}}>
-                <h3 style={{marginTop: '-4.5%'}}>{category}</h3>
+                <h3 style={{marginTop: '-3.5%', marginLeft: '2px'}}>{searchTitle}</h3>
                 <Grid container spacing={2} >
                     {
                         data.map(d => (
