@@ -15,7 +15,7 @@ const LayoutContainer = () => {
     return(
         <>
             <Container sx={{marginY: '4%', marginX: '2%'}}>
-                <h3 style={{marginTop: '-3.5%', marginLeft: '2px'}}>{searchTitle}</h3>
+                <h3 style={{marginTop: '-4.7%', marginLeft: '2px'}}>{searchTitle}</h3>
                 <Grid container spacing={2} >
                     {
                         data.map(d => (

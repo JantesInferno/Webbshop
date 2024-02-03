@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { firebaseAuth } from "../firebase/firebase";
 
 export const AuthContext = createContext();
@@ -34,8 +34,8 @@ export const AuthContextProvider = ({children}) => {
     const signInUser = async (email, password) => {
         let error;
         await signInWithEmailAndPassword(firebaseAuth, email, password)
-        .then((cred) => {
-            console.log('user logged in:', cred.user)
+        .then(() => {
+            console.log('user logged in')
         })
         .catch((err) => {
             console.log(err.message)

@@ -1,5 +1,6 @@
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Button, Divider, Drawer, Tooltip } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 import Badge from '@mui/material/Badge';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -74,9 +75,13 @@ const Navbar = () => {
                         </Tooltip>
 
                         {currentUser != null ? (
-                            <Button className='loginIcon' variant="contained" sx={{ textTransform: 'none', color: 'primary.main', bgcolor: 'secondary.main', border: 'none', transition: '0.3s', ':hover': { bgcolor: '#913030', color: 'secondary.main'} }} endIcon={<LogoutIcon />} onClick={signOutUser}>
-                                <Typography textAlign="center" sx={{ fontWeight: 'bold' }}>{currentUser.displayName}</Typography>
-                            </Button>
+                            <>
+                            <Avatar sx={{ bgcolor: 'action.main', padding: '5px', height: '40px', width: '40px'}}>
+                                {`${currentUser.displayName.split(' ')[0][0]}${currentUser.displayName.split(' ')[1][0]}`}
+                            </Avatar>
+                            
+                            <LogoutIcon className='logOutIcon' onClick={signOutUser} />
+                            </>
                         ) : (
                             <Button className='loginIcon' variant="contained" sx={{ textTransform: 'none', color: 'primary.main', bgcolor: 'secondary.main', border: 'none', transition: '0.3s', ':hover': { bgcolor: 'action.main', color: 'secondary.main'} }} endIcon={<LoginIcon  />} onClick={handleOpenLoginMenu}>
                                 <Typography textAlign="center" sx={{ fontWeight: 'bold' }}>Logga in</Typography>
@@ -96,7 +101,7 @@ const Navbar = () => {
                             height: 'auto',
                             top: 108,
                             marginRight: '25px',
-                            bgcolor: 'primary.main',
+                            bgcolor: 'primary.main'
                         }
                     }}
                     >
@@ -113,10 +118,10 @@ const Navbar = () => {
                         {cart.map((product) => 
                             (
                                 <div className='row' key={product.id}>
-                                    <MenuItem sx={{width: '45%', bgcolor: 'primary.main', color: 'secondary.main', border: '2px solid transparent', ':hover': { bgcolor: '#111', borderLeft: '2px solid #226e36'}}} key={product.id} onClick={() => handleCartClick(product)}>
+                                    <MenuItem sx={{minWidth: '45%', width: '45%', bgcolor: 'primary.main', color: 'secondary.main', border: '2px solid transparent', ':hover': { bgcolor: '#111', borderLeft: '2px solid #226e36'}}} key={product.id} onClick={() => handleCartClick(product)}>
                                     <Typography noWrap textAlign="left">{product.title}</Typography>
                                     </MenuItem>
-                                    <div className='count' style={{marginLeft: '0px'}}>
+                                    <div className='count'>
                                         <RemoveIcon sx={{cursor: 'pointer', color: 'secondary.main', borderRadius: '50%', padding: '2px', ':hover': {bgcolor: '#111'} }} fontSize='small' onClick={() => removeItemFromQuantity(product)} />
                                         <Typography textAlign="center" sx={{ color: 'secondary.main' }}>{product.quantity}</Typography>
                                         <AddIcon sx={{cursor: 'pointer', color: 'secondary.main', borderRadius: '50%', padding: '2px', ':hover': {bgcolor: '#111'} }} fontSize='small' onClick={() => addToCart(product)} />

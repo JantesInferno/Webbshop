@@ -5,11 +5,9 @@ import MonitorIcon from '@mui/icons-material/Monitor';
 import MouseIcon from '@mui/icons-material/Mouse';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
-import './sidenav.css';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { DBContext } from '../../contexts/DBContext';
-import './sidenav.css';
 
 const SideNavDrawer = () => {
 
@@ -69,12 +67,11 @@ const SideNavDrawer = () => {
                         <div key={item.text}>
                                 <ListItem button sx={{ 
                                     bgcolor: location.pathname == `/${item.path}/` ? '#111' : null,
-                                 color: 'white', width: '90%', margin: '0 auto',  border: '2px solid transparent', 
-                                 borderLeft: location.pathname == `/${item.path}/` ? '2px solid #226e36' : null, 
-                                 ':hover': { bgcolor: '#282828', borderLeft: '2px solid #226e36' }}} 
-                                 onClick={() => {
-                                    getCategoryProducts(item.text, item.path);
-                                }}>
+                                    color: 'white', width: '90%', margin: '0 auto',  border: '2px solid transparent', 
+                                    borderLeft: location.pathname == `/${item.path}/` ? '2px solid #226e36' : null, 
+                                    ':hover': { bgcolor: '#282828', borderLeft: '2px solid #226e36' }}} 
+                                    onClick={() => {getCategoryProducts(item.text, item.path)}}
+                                >
                                     <ListItemIcon >{item.icon}</ListItemIcon>
                                     <ListItemText primary={item.text} />
                                 </ListItem>
@@ -87,13 +84,13 @@ const SideNavDrawer = () => {
                         color: 'white', width: '90%', margin: '0 auto', border: '2px solid transparent',
                         borderLeft: location.pathname == '/customerservice/' ? '2px solid #226e36' : null,
                         ':hover': { bgcolor: '#282828', borderLeft: '2px solid #226e36' }}} 
-                        onClick={() => navigate('/customerservice/')}>
+                        onClick={() => navigate('/customerservice/')}
+                    >
                         <ListItemIcon><SupportAgentIcon color='secondary'/></ListItemIcon>
                         <ListItemText primary={'Kundtjänst'} />
                     </ListItem>
                     <Divider variant='middle'  color='white' />
                 </List>
-
             </Drawer>
         </>
     )

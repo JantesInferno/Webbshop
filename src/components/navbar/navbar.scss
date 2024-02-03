@@ -16,15 +16,26 @@
     .icons {
         margin-right: 8px;
         display: flex;
+        justify-content: space-evenly;
         width: 20%;
         gap: 5%;
-        justify-content: space-evenly;
+        cursor: pointer;
 
         .shoppingCartIcon {
             height: 40px;
             width: 40px;
             border-radius: 50%;
             padding: 5px;
+            transition: background-color 0.3s;
+            &:hover {
+                background-color: #226e36;
+            }
+        }
+        .logOutIcon {
+            height: 36px;
+            width: 36px;
+            border-radius: 50%;
+            padding: 8px 6px 8px 10px;
             transition: background-color 0.3s;
             &:hover {
                 background-color: #226e36;
@@ -62,6 +73,7 @@
     .count {
         display: flex;
         justify-content: center;
+        margin-left: 0px;
         gap: 10px;
     }
     .price-delete {

@@ -1,11 +1,11 @@
 
-.searchAutoCompleteContainer {
+.searchBarContainer {
     position: relative;
     width: 25%;
     height: 100%;
     top: 25%;
 
-    .searchContainer {
+    .searchContainer, .searchContainerAutoComplete {
         display: flex;
         width: 100%;
         height: 50%;
@@ -29,8 +29,8 @@
             &:focus {
                 outline: none;
             }
-
         }
+
         .searchButton  {
             height: 40px;
             width: 40px;
@@ -45,7 +45,6 @@
                     margin: 5px;
                 }
             }
-
             .searchIcon {
                 margin: 5px;
             }
@@ -53,52 +52,11 @@
     }
 
     .searchContainerAutoComplete {
-        display: flex;
-        width: 100%;
-        height: 50%;
-        align-items: center;
-        background-color: #1d1d1d;
         border-radius: 25px 25px 0 0;
         outline: 2px solid white; 
-        &:focus-within { 
-            outline: 2px solid white; 
-            border: none;
-        }
-
-        .searchInput {
-            display: inline-block;
-            width: 90%;
-            font-size: 1.1em;
-            background-color: inherit;
-            border: none;
-            padding: 5px;
-            padding-left: 25px;
-            border-radius: 25px;
-            &:focus {
-                outline: none;
-            }
-
-        }
         .searchButton  {
-            height: 40px;
-            width: 40px;
             border-radius: 0 50% 0 0;
-            background-color: inherit;
-            padding: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            &:hover {
-                background-color: #226e36;
-                .searchIcon {
-                    margin: 5px;
-                }
-            }
-
-            .searchIcon {
-                margin: 5px;
-            }
         }
     }
-
-
+    
 }
