@@ -56,9 +56,11 @@ const SearchBar = () => {
                             borderRadius: item == suggestions[suggestions.length - 1] ? '0 0 25px 25px' : null,
                             paddingRight: '0px', ':hover': { bgcolor: '#111', borderLeft: '5px solid #226e36' }}} 
                             onClick={() => {
-                              setShowAutoComplete(false);
                               searchProducts(item.title);
-                              navigate('/');
+                              console.log(item.title)
+                              navigate(`/product/${item.id}`);
+                              console.log(item.id)
+                              setShowAutoComplete(false);
                             }}
                           >
                             <ListItemText primary={item.title} sx={{ margin: '0 auto', color: 'white', padding: '5px'}} />

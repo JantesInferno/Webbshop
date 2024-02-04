@@ -79,12 +79,12 @@ const Login = () => {
                                 <h4 style={{color: '#ad443d', margin: '0', padding: '0'}}>{authError}</h4>
                                 ) : null }
 
-                                <TextField color='action' label="Email" variant="filled"
+                                <TextField color='action' label="Email" type="email" variant="filled"
                                 value={email.value} error={ isError && email.value === "" } helperText={ isError && email.value === "" ? 'Obligatoriskt fält' : ''}
                                 onChange={event => setEmail({ value: event.target.value })}
                                 sx={{ width: '60%', input: { color: 'secondary.main'}, label: { color: 'secondary.main' } }} />
 
-                                <TextField color="action" label="Lösenord" variant="filled" 
+                                <TextField color="action" label="Lösenord" type="password" variant="filled" 
                                 value={password.value} error={ isError && password.value.length < 6 } helperText={ isError && password.value.length < 6 ? 'Minst 6 tecken' : ''}
                                 onChange={event => setPassword({ type: 'password', value: event.target.value })} 
                                 sx={{ width: '60%', input: { color: 'secondary.main' }, label: { color: 'secondary.main' } }} />

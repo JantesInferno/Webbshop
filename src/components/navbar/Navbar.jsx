@@ -69,18 +69,26 @@ const Navbar = () => {
                     
                     <div className='icons'>
                         <Tooltip title="Öppna varukorgen">
-                            <Badge badgeContent={numOfCartItems} color="secondary">
+                            <Badge badgeContent={numOfCartItems} sx={{
+                                "& .MuiBadge-badge": {
+                                color: "#fff",
+                                backgroundColor: "action.main"
+                                }
+                            }}>
                                 <ShoppingCartIcon className='shoppingCartIcon' color='secondary' fontSize='large' onClick={handleOpenCartMenu}/>
                             </Badge>
                         </Tooltip>
 
-                        {currentUser != null ? (
+                        {currentUser != null && currentUser.displayName != null ? (
                             <>
-                            <Avatar sx={{ bgcolor: 'action.main', padding: '5px', height: '40px', width: '40px'}}>
-                                {`${currentUser.displayName.split(' ')[0][0]}${currentUser.displayName.split(' ')[1][0]}`}
-                            </Avatar>
-                            
-                            <LogoutIcon className='logOutIcon' onClick={signOutUser} />
+                            <Tooltip title={currentUser.displayName}>
+                                <Avatar sx={{ bgcolor: 'action.main', padding: '5px', height: '40px', width: '40px'}}>
+                                    {`${currentUser.displayName.split(' ')[0][0]}${currentUser.displayName.split(' ')[1][0]}`}
+                                </Avatar>
+                            </Tooltip>
+                            <Tooltip title="Logga ut">
+                                <LogoutIcon className='logOutIcon' onClick={signOutUser} />
+                            </Tooltip>
                             </>
                         ) : (
                             <Button className='loginIcon' variant="contained" sx={{ textTransform: 'none', color: 'primary.main', bgcolor: 'secondary.main', border: 'none', transition: '0.3s', ':hover': { bgcolor: 'action.main', color: 'secondary.main'} }} endIcon={<LoginIcon  />} onClick={handleOpenLoginMenu}>

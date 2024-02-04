@@ -23,9 +23,13 @@ export const AuthContextProvider = ({children}) => {
             console.log(err)
           );
           await updateProfile(firebaseAuth.currentUser, { displayName: `${firstname} ${lastname}` })
+          .then(() => {
+            signOutUser()
+          })
           .catch(
             (err) => console.log(err)
           );
+          signInUser(email, password);
         } catch (err) {
           console.log(err);
         }

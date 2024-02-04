@@ -1,7 +1,7 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import { Container } from "@mui/material";
 import ProductCard from "../product_card/ProductCard";
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import { useParams } from "react-router-dom";
 import { DBContext } from "../../contexts/DBContext";

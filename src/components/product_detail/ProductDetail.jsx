@@ -16,11 +16,6 @@ const ProductDetail = () => {
 
     let product = data.find((d) => d.id === productId);
 
-    useEffect(() => {
-        if (product == undefined) {
-            navigate('/');
-        }
-    }, [data])
 
     return(
         <>
@@ -47,7 +42,7 @@ const ProductDetail = () => {
                             }}>
                             {product ? product.subtitle : null}
                         </Typography>
-                        <Typography variant="body1" textAlign={'center'} sx={{
+                        <Typography variant="body1" textAlign={'left'} sx={{
                             height: '3em',
                             marginBottom: '5em'
                             }}>

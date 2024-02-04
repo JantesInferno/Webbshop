@@ -63,14 +63,15 @@ export const DBContextProvider = ({children}) => {
       })
     }
 
-    const searchProducts = (input) => {
+    const searchProducts = async (input) => {
+      console.log(input);
       const q = query(
         collection(db, 'products'),
         where('searchterm', '>=', input.toLowerCase()),
         where('searchterm', '<=', input.toLowerCase() + '\uf8ff')
       )
   
-      onSnapshot(q, (snapshot) => {
+      await onSnapshot(q, (snapshot) => {
         const products = [];
         snapshot.docs.map((doc) => {
           products.push({ ...doc.data(), id: doc.id})
@@ -78,11 +79,11 @@ export const DBContextProvider = ({children}) => {
         setSearchTitle(`Visar ${products.length} resultat för '${input}':`);
         setData(products);
       });
+      
     }
 
     const getCategoryProducts = (category, path) => {
       setData([]);
-      console.log(data);
       const q = query(collection(db, 'products'), where("category", "==", category))
   
       onSnapshot(q, (snapshot) => {
