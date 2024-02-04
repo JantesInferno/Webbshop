@@ -47,11 +47,28 @@ export const CartContextProvider = ({children}) => {
 
     const removeItemFromQuantity = (item) => {
       if (item.quantity > 1) {
-        item.quantity -= 2;
-        addToCart(item);
+        let updatedCart = cart.map(product => 
+          {
+            if (product.id == item.id){
+              return {...product, quantity: --item.quantity};
+            }
+            return product;
+          });
+          setCart(updatedCart);
       }
       else
         removeFromCart(item);
+    }
+
+    const addItemToQuantity = (item) => {
+      let updatedCart = cart.map(product => 
+        {
+          if (product.id == item.id){
+            return {...product, quantity: ++item.quantity};
+          }
+          return product;
+        });
+        setCart(updatedCart);
     }
     
   
@@ -60,7 +77,7 @@ export const CartContextProvider = ({children}) => {
             cart, setCart,
             isItemDeleted, setIsItemDeleted,
             addToCart, removeFromCart,
-            removeItemFromQuantity
+            addItemToQuantity, removeItemFromQuantity
           }}>
         {children}
       </CartContext.Provider>

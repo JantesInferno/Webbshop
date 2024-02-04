@@ -22,7 +22,7 @@ import { AuthContext } from '../../contexts/AuthContext';
 
 const Navbar = () => {
 
-    const {cart, addToCart, removeFromCart, removeItemFromQuantity} = useContext(CartContext);
+    const {cart, addItemToQuantity, removeFromCart, removeItemFromQuantity} = useContext(CartContext);
     const {anchorCart, handleOpenCartMenu, handleCloseCartMenu, handleOpenLoginMenu} = useContext(NavbarContext);
     const {createOrder, searchProducts} = useContext(DBContext);
     const {signOutUser, currentUser} = useContext(AuthContext);
@@ -132,7 +132,7 @@ const Navbar = () => {
                                     <div className='count'>
                                         <RemoveIcon sx={{cursor: 'pointer', color: 'secondary.main', borderRadius: '50%', padding: '2px', ':hover': {bgcolor: '#111'} }} fontSize='small' onClick={() => removeItemFromQuantity(product)} />
                                         <Typography textAlign="center" sx={{ color: 'secondary.main' }}>{product.quantity}</Typography>
-                                        <AddIcon sx={{cursor: 'pointer', color: 'secondary.main', borderRadius: '50%', padding: '2px', ':hover': {bgcolor: '#111'} }} fontSize='small' onClick={() => addToCart(product)} />
+                                        <AddIcon sx={{cursor: 'pointer', color: 'secondary.main', borderRadius: '50%', padding: '2px', ':hover': {bgcolor: '#111'} }} fontSize='small' onClick={() => addItemToQuantity(product)} />
                                     </div>
                                     <div className='price-delete'>
                                         <Typography className='price' textAlign="right" sx={{marginLeft: '25px', width: '70px', color: 'secondary.main' }}>{product.price.toLocaleString().replace(',', ' ')} kr</Typography>
@@ -147,6 +147,7 @@ const Navbar = () => {
                             <h4>Summa: </h4>
                             <h4>{cart.reduce((n, {price, quantity}) => n + (price * quantity), 0).toLocaleString().replace(',', ' ')} kr</h4>
                     </div>
+
                     {error ? (
                         <h4 style={{position: 'relative', margin: '0 auto', bottom: '50px',color: '#ad443d', padding: '0'}}>Logga in för att lägga en order</h4>
                     ) : null }
