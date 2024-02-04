@@ -20,7 +20,7 @@ function App() {
         <SideNavDrawer />
         <Routes>
           <Route path='/' element={<LayoutContainer />} >
-            <Route path=':category' element={<LayoutContainer />} />
+            <Route path='/:category' element={<LayoutContainer />} />
           </Route>
           <Route path='/register' element={<Register />} />
           <Route path='/product/:productId' element={<ProductDetail />} />

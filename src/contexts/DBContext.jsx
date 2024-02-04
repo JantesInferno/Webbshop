@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CartContext } from './CartContext';
 import firebaseApp from '../firebase/firebase';
 
@@ -23,23 +23,14 @@ export const DBContextProvider = ({children}) => {
   
     const [data, setData] = useState([]);
     const [productsAutocomplete, setProductsAutocomplete] = useState([]);
-    const [searchTitle, setSearchTitle] = useState("Visar alla produkter");
+    const [searchTitle, setSearchTitle] = useState('');
 
-    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
-      onSnapshot(collection(db, 'products'), (snapshot) => {
-        const products = [];
-        snapshot.docs.map((doc) => {
-            products.push({ ...doc.data(), id: doc.id});
-        })
-        const productsTitleId= [];
-        products.map(product => {
-            productsTitleId.push({ title: product.title, id: product.id });
-        })
-        setData(products);
-        setProductsAutocomplete(productsTitleId);
-      })
+      if (location.pathname == '/') {
+        getAllProducts();
+      }
     }, [])
 
     
@@ -79,10 +70,10 @@ export const DBContextProvider = ({children}) => {
         setSearchTitle(`Visar ${products.length} resultat för '${input}':`);
         setData(products);
       });
-      
+
     }
 
-    const getCategoryProducts = (category, path) => {
+    const getCategoryProducts = (category) => {
       setData([]);
       const q = query(collection(db, 'products'), where("category", "==", category))
   
@@ -94,7 +85,22 @@ export const DBContextProvider = ({children}) => {
         setSearchTitle(`${category}`);
         setData(products);
       });
-      navigate(`${path}/`);
+    }
+
+    const getAllProducts = () => {
+      onSnapshot(collection(db, 'products'), (snapshot) => {
+        const products = [];
+        snapshot.docs.map((doc) => {
+            products.push({ ...doc.data(), id: doc.id});
+        })
+        const productsTitleId= [];
+        products.map(product => {
+            productsTitleId.push({ title: product.title, id: product.id });
+        })
+        setData(products);
+        setSearchTitle('Visar alla produkter');
+        setProductsAutocomplete(productsTitleId);
+      })
     }
     
   
@@ -104,6 +110,7 @@ export const DBContextProvider = ({children}) => {
             productsAutocomplete, setProductsAutocomplete,
             searchTitle, setSearchTitle,
             getCategoryProducts, 
+            getAllProducts,
             searchProducts,
             createOrder
           }}>

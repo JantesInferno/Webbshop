@@ -70,7 +70,7 @@ const SideNavDrawer = () => {
                                     color: 'white', width: '90%', margin: '0 auto',  border: '2px solid transparent', 
                                     borderLeft: location.pathname == `/${item.path}/` ? '2px solid #226e36' : null, 
                                     ':hover': { bgcolor: '#282828', borderLeft: '2px solid #226e36' }}} 
-                                    onClick={() => {getCategoryProducts(item.text, item.path)}}
+                                    onClick={() => navigate(`${item.path}/`)}
                                 >
                                     <ListItemIcon >{item.icon}</ListItemIcon>
                                     <ListItemText primary={item.text} />

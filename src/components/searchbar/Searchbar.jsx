@@ -50,8 +50,8 @@ const SearchBar = () => {
                   <List sx={{ bgcolor: 'primary.main', outline: '2px solid white', padding: '0px 0px', borderRadius: '0 0 25px 25px'}}>
                     {
                       suggestions.map((item) => (
-                        <>
-                          <ListItem key={item.id} className='listItem' button sx={{ 
+                        <div key={item.id}>
+                          <ListItem className='listItem' button sx={{ 
                             border: '5px solid transparent',
                             borderRadius: item == suggestions[suggestions.length - 1] ? '0 0 25px 25px' : null,
                             paddingRight: '0px', ':hover': { bgcolor: '#111', borderLeft: '5px solid #226e36' }}} 
@@ -67,7 +67,7 @@ const SearchBar = () => {
                             <ListItemIcon><SearchIcon sx={{ color: '#fff', marginLeft: '47%' }}/></ListItemIcon>
                           </ListItem>
                           <Divider variant='middle' sx={{ margin: '1px', bgcolor: 'secondary.main' }} />
-                        </>
+                        </div>
                       ))
                     }
                   </List>

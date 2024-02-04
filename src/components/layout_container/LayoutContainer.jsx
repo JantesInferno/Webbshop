@@ -1,16 +1,33 @@
 import { Grid } from "@mui/material";
 import { Container } from "@mui/material";
 import ProductCard from "../product_card/ProductCard";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import { useParams } from "react-router-dom";
 import { DBContext } from "../../contexts/DBContext";
 
+const categories = [
+    {url: 'bildskarmar' , name: 'Bildskärmar'},
+    {url: 'datorer' , name: 'Datorer'},
+    {url: 'datorkomponenter' , name: 'Datorkomponenter'},
+    {url: 'datortillbehor' , name: 'Datortillbehör'},
+    {url: 'telefoner' , name: 'Telefoner'},
+]
+
 const LayoutContainer = () => {
 
     const {category} = useParams();
-    const {data, searchTitle} = useContext(DBContext);
+    const {data, searchTitle, getCategoryProducts} = useContext(DBContext);
     const {addToCart} = useContext(CartContext);
+
+    useEffect(() => {
+        if (category != null) {
+            const currentCategory = categories.filter((item) => {
+                return item.url === category;
+            })
+            getCategoryProducts(currentCategory[0].name);
+        }
+    }, [category])
 
     return(
         <>

@@ -24,7 +24,7 @@ const Navbar = () => {
 
     const {cart, addItemToQuantity, removeFromCart, removeItemFromQuantity} = useContext(CartContext);
     const {anchorCart, handleOpenCartMenu, handleCloseCartMenu, handleOpenLoginMenu} = useContext(NavbarContext);
-    const {createOrder, searchProducts} = useContext(DBContext);
+    const {createOrder, searchProducts, getAllProducts} = useContext(DBContext);
     const {signOutUser, currentUser} = useContext(AuthContext);
 
     const [numOfCartItems, setNumOfCartItems] = useState(0);
@@ -62,7 +62,7 @@ const Navbar = () => {
             <div className='navbarContainer'>
                 
                 <Link to='/' >
-                <img src={logo} className='logo' />
+                <img src={logo} className='logo' onClick={getAllProducts} />
                 </Link>
 
                 <SearchBar />
