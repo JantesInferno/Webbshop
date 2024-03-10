@@ -1,6 +1,8 @@
 # React Webshop with Firebase Integration
 
-<img src='./Github_Images/quiz_1.png' width=70%>
+<img src='./Github_Images/homepage.png' height=200px> <img src='./Github_Images/login.png' height=200px> <img src='./Github_Images/cart.png' height=200px>
+<img src='./Github_Images/card.png' height=200px>
+<img src='./Github_Images/search.png' height=200px>
 
 ## Project Overview
 This repository contains a webshop built using React with Firebase integration for database and authentication. The webshop provides essential e-commerce functionalities, including item search with autocomplete, adding items to the shopping cart, adjusting item quantities, various product categories, user registration, and login.
