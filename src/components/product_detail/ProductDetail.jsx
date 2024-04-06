@@ -14,14 +14,13 @@ const ProductDetail = () => {
 
     const navigate = useNavigate();
 
-    let product = data.find((d) => d.id === productId);
-
+    let product = data.find((d) => d.productId == productId);
 
     return(
         <>
             <Card elevation={5} sx={{ bgcolor: 'primary.main', color: 'secondary.main', border: '1px solid #111', width: '50%', margin: 'auto auto' }}>
                     <div className="productDetailImageContainer">
-                            <img src={product ? product.image_url : null} className="productDetailImage"/>
+                            <img src={product ? product.imageURL : null} className="productDetailImage"/>
                     </div>
                         <div className='cardHeader'>
                             <Typography variant={'h4'} color={'primary'} textAlign={'center'} paddingX={'16px'} paddingTop={'16px'} sx={{

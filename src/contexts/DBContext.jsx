@@ -1,24 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CartContext } from './CartContext';
-import firebaseApp from '../firebase/firebase';
 
 export const DBContext = createContext();
 
-import { 
-    getFirestore, 
-    collection, 
-    onSnapshot, 
-    query, 
-    where,
-    addDoc,
-    serverTimestamp,
-} from "firebase/firestore";
-
-const db = getFirestore(); 
-
 export const DBContextProvider = ({children}) => {
     
+    const apiUrl = import.meta.env.VITE_REACT_APP_DB_URL;
+
     const setCart = useContext(CartContext);
   
     const [data, setData] = useState([]);
@@ -34,73 +23,100 @@ export const DBContextProvider = ({children}) => {
     }, [])
 
     
-    const createOrder = (cart, user) => {
-  
-      const sum = cart.reduce((n, {price, quantity}) => n + (price * quantity), 0);
-      console.log(cart);
-      console.log(sum);
-  
-      addDoc(collection(db, 'orders'), {
-        created: serverTimestamp(),
-        products: cart,
-        sum: sum,
-        customerid: user.uid,
-        customeremail: user.email,
-        customername: user.displayName
+    const createOrder = async (cart, user) => {
+
+
+      let productDict = Object.assign({}, ...cart.map((product) => ({[product.productId]: product.quantity})));
+      
+      const token = sessionStorage.getItem('token');
+
+      const url = `${apiUrl}/api/create-order`;
+
+      const result = await fetch(url, {
+        method: "POST", 
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ "productsQuantity": productDict})
       })
-      .then(() => {
-        alert('Beställning lagd')
-        setCart([]);
+      .then(response => {
+        if (response.ok)
+          return response.json();
+        else
+          return response.status;
       })
+      .catch(error => {
+        return 500;
+      });
+
+      return result;
     }
 
     const searchProducts = async (input) => {
-      console.log(input);
-      const q = query(
-        collection(db, 'products'),
-        where('searchterm', '>=', input.toLowerCase()),
-        where('searchterm', '<=', input.toLowerCase() + '\uf8ff')
-      )
-  
-      await onSnapshot(q, (snapshot) => {
-        const products = [];
-        snapshot.docs.map((doc) => {
-          products.push({ ...doc.data(), id: doc.id})
-        })
-        setSearchTitle(`Visar ${products.length} resultat för '${input}':`);
-        setData(products);
-      });
 
-    }
+      const url = `${apiUrl}/api/get-products-by-name/${input}`;
 
-    const getCategoryProducts = (category) => {
-      setData([]);
-      const q = query(collection(db, 'products'), where("category", "==", category))
-  
-      onSnapshot(q, (snapshot) => {
-        const products = [];
-        snapshot.docs.map((doc) => {
-          products.push({ ...doc.data(), id: doc.id})
-        })
-        setSearchTitle(`${category}`);
-        setData(products);
-      });
-    }
-
-    const getAllProducts = () => {
-      onSnapshot(collection(db, 'products'), (snapshot) => {
-        const products = [];
-        snapshot.docs.map((doc) => {
-            products.push({ ...doc.data(), id: doc.id});
-        })
-        const productsTitleId= [];
-        products.map(product => {
-            productsTitleId.push({ title: product.title, id: product.id });
-        })
-        setData(products);
-        setSearchTitle('Visar alla produkter');
-        setProductsAutocomplete(productsTitleId);
+      const result = await fetch(url)
+      .then(response => {
+        if (response.ok)
+          return response.json();
+        else
+          console.log(response.status);
       })
+      .catch(error => {
+        console.log(error);
+      });
+
+      setSearchTitle(`Visar ${result.length} resultat för '${input}':`);
+      setData(result);
+
+    }
+
+    const getCategoryProducts = async (categoryId, categoryName) => {
+
+      const url = `${apiUrl}/api/get-category-by-id/${categoryId}`;
+
+      const result = await fetch(url)
+      .then(response => {
+        if (response.ok)
+          return response.json();
+        else
+          console.log(response.status);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+      setSearchTitle(`${categoryName}`);
+      setData(result.products);
+
+    }
+
+    const getAllProducts = async () => {
+      const url = `${apiUrl}/api/get-all-products`;
+
+      const products = await fetch(url)
+      .then(response => {
+        if (response.ok)
+          return response.json();
+        else
+          console.log(response.status);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+      const productsTitleId = [];
+
+      products.map(product => {
+        productsTitleId.push({ title: product.title, id: product.productId});
+      })
+
+      setData(products);
+      setSearchTitle('Visar alla produkter');
+      setProductsAutocomplete(productsTitleId);
+
     }
     
   

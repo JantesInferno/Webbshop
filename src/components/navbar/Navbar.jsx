@@ -11,7 +11,7 @@ import SearchBar from '../searchbar/Searchbar';
 import { MenuItem } from '@mui/material';
 import { Typography } from '@mui/material';
 import './navbar.css';
-import logo from '../../assets/topstyles_logo.png';
+import logo from '../../assets/eynet_logo.png';
 import { useContext, useEffect, useState } from 'react';
 import Login from '../login/Login';
 import { Link, useNavigate } from 'react-router-dom';
@@ -22,7 +22,7 @@ import { AuthContext } from '../../contexts/AuthContext';
 
 const Navbar = () => {
 
-    const {cart, addItemToQuantity, removeFromCart, removeItemFromQuantity} = useContext(CartContext);
+    const {cart, setCart, addItemToQuantity, removeFromCart, removeItemFromQuantity} = useContext(CartContext);
     const {anchorCart, handleOpenCartMenu, handleCloseCartMenu, handleOpenLoginMenu} = useContext(NavbarContext);
     const {createOrder, searchProducts, getAllProducts} = useContext(DBContext);
     const {signOutUser, currentUser} = useContext(AuthContext);
@@ -46,9 +46,23 @@ const Navbar = () => {
         }
     }, [currentUser])
 
-    const handleOrder = () => {
+    const handleOrder = async () => {
         if (currentUser != null) {
-            createOrder(cart, currentUser);
+            const result = await createOrder(cart, currentUser);
+
+            console.log(result);
+
+            if (result == 401) {
+                signOutUser();
+                alert('Din användarsession har löpt ut. Vänligen logga in igen för att lägga en beställning');
+            }
+            else if (result == 500) {
+                alert('Ett oväntat fel har inträffat. Vänligen försök igen senare');
+            }
+            else {
+                alert('Beställning lagd');
+                setCart([]);
+            }
         }
     }
 
@@ -79,11 +93,11 @@ const Navbar = () => {
                             </Badge>
                         </Tooltip>
 
-                        {currentUser != null && currentUser.displayName != null ? (
+                        {currentUser != null && currentUser.name != null ? (
                             <>
                             <Tooltip title={currentUser.displayName}>
                                 <Avatar sx={{ bgcolor: 'action.main', padding: '5px', height: '40px', width: '40px'}}>
-                                    {`${currentUser.displayName.split(' ')[0][0]}${currentUser.displayName.split(' ')[1][0]}`}
+                                    {`${currentUser.name.split(' ')[0][0]}${currentUser.name.split(' ')[1][0]}`}
                                 </Avatar>
                             </Tooltip>
                             <Tooltip title="Logga ut">
@@ -125,8 +139,8 @@ const Navbar = () => {
 
                         {cart.map((product) => 
                             (
-                                <div className='row' key={product.id}>
-                                    <MenuItem sx={{minWidth: '45%', width: '45%', bgcolor: 'primary.main', color: 'secondary.main', border: '2px solid transparent', ':hover': { bgcolor: '#111', borderLeft: '2px solid #226e36'}}} key={product.id} onClick={() => handleCartClick(product)}>
+                                <div className='row' key={product.productId}>
+                                    <MenuItem sx={{minWidth: '45%', width: '45%', bgcolor: 'primary.main', color: 'secondary.main', border: '2px solid transparent', ':hover': { bgcolor: '#111', borderLeft: '2px solid #226e36'}}} onClick={() => handleCartClick(product)}>
                                     <Typography noWrap textAlign="left">{product.title}</Typography>
                                     </MenuItem>
                                     <div className='count'>
@@ -142,20 +156,20 @@ const Navbar = () => {
                             )
                         )}
                         
-                    <Divider color='white'/>
-                    <div className='cartColumnFooters'>
-                            <h4>Summa: </h4>
-                            <h4>{cart.reduce((n, {price, quantity}) => n + (price * quantity), 0).toLocaleString().replace(',', ' ')} kr</h4>
-                    </div>
+                        <Divider color='white'/>
+                        <div className='cartColumnFooters'>
+                                <h4>Summa: </h4>
+                                <h4>{cart.reduce((n, {price, quantity}) => n + (price * quantity), 0).toLocaleString().replace(',', ' ')} kr</h4>
+                        </div>
 
-                    {error ? (
-                        <h4 style={{position: 'relative', margin: '0 auto', bottom: '50px',color: '#ad443d', padding: '0'}}>Logga in för att lägga en order</h4>
-                    ) : null }
-                    <Button sx={{bottom: 0, width: '100%', position: 'absolute', color: 'secondary.main', bgcolor: 'action.main', ':hover': { bgcolor: '#123d1e' }}}
-                    onClick={handleOrder}
-                    >
-                        Till kassan
-                    </Button>
+                        {error ? (
+                            <h4 style={{position: 'relative', margin: '0 auto', bottom: '50px',color: '#ad443d', padding: '0'}}>Logga in för att lägga en order</h4>
+                        ) : null }
+                        <Button sx={{bottom: 0, width: '100%', position: 'absolute', color: 'secondary.main', bgcolor: 'action.main', ':hover': { bgcolor: '#123d1e' }}}
+                        onClick={handleOrder}
+                        >
+                            Lägg beställning
+                        </Button>
                     </Drawer>
 
                     <Login />

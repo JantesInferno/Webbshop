@@ -26,11 +26,11 @@ export const CartContextProvider = ({children}) => {
 
     const addToCart = (item) => {
       const duplicates = cart.filter(product => {
-        return product.id === item.id;
+        return product.productId === item.productId;
       })
       if (duplicates.length > 0) {
-        item.quantity = duplicates.length + item.quantity;
-        removeFromCart(item);
+        item.quantity = duplicates.length + duplicates[0].quantity;
+        removeFromCart(duplicates[0]);
       }
       else
         item.quantity = 1;
@@ -39,7 +39,7 @@ export const CartContextProvider = ({children}) => {
   
     const removeFromCart = (item) => {
       const items = cart.filter(product => {
-        return product.id !== item.id;
+        return product.productId !== item.productId;
       })
       setCart(items);
       setIsItemDeleted(true);
@@ -49,21 +49,22 @@ export const CartContextProvider = ({children}) => {
       if (item.quantity > 1) {
         let updatedCart = cart.map(product => 
           {
-            if (product.id == item.id){
+            if (product.productId == item.productId){
               return {...product, quantity: --item.quantity};
             }
             return product;
           });
           setCart(updatedCart);
       }
-      else
+      else {
         removeFromCart(item);
+      }
     }
 
     const addItemToQuantity = (item) => {
       let updatedCart = cart.map(product => 
         {
-          if (product.id == item.id){
+          if (product.productId == item.productId){
             return {...product, quantity: ++item.quantity};
           }
           return product;

@@ -1,60 +1,83 @@
 import { createContext, useState, useEffect } from "react";
-import { onAuthStateChanged, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { firebaseAuth } from "../firebase/firebase";
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({children}) => {
 
+    const apiUrl = import.meta.env.VITE_REACT_APP_DB_URL;
+    
     const [currentUser, setCurrentUser] = useState(null);
 
-    useEffect(() => {
-    
-        onAuthStateChanged(firebaseAuth, (user) => {
-          setCurrentUser(user);
-        })
-        
-    }, []);
 
-    const createUserAccount = async (email, password, firstname, lastname) => {
-        try {
-          await createUserWithEmailAndPassword(firebaseAuth, email, password)
-          .catch((err) =>
-            console.log(err)
-          );
-          await updateProfile(firebaseAuth.currentUser, { displayName: `${firstname} ${lastname}` })
-          .then(() => {
-            signOutUser()
-          })
-          .catch(
-            (err) => console.log(err)
-          );
-          signInUser(email, password);
-        } catch (err) {
-          console.log(err);
-        }
+    const createUserAccount = async (name, username, email, password, address, city) => {
+
+      const url = `${apiUrl}/api/register`;
+
+      await fetch(url, {
+        method: "POST", 
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ 
+          "name": name, 
+          "username": username,
+          "email": email,
+          "password": password,
+          "address": address,
+          "city": city
+        })
+      })
+      .then(response => {
+        if (response.ok)
+          console.log(response.json());
+        else
+          console.log(response.status);
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
     
-    const signInUser = async (email, password) => {
-        let error;
-        await signInWithEmailAndPassword(firebaseAuth, email, password)
-        .then(() => {
-            console.log('user logged in')
-        })
-        .catch((err) => {
-            console.log(err.message)
-            error = err.message;
-        })
-        return error;
+    const signInUser = async (username, password) => {
+
+      const url = `${apiUrl}/api/login`;
+
+      const result = await fetch(url, {
+        method: "POST", 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ "username": username, "password": password}),
+      })
+      .then(response => {
+        if (response.ok)
+          return response.json();
+        else
+          return response.status;
+      })
+      .catch(error => {
+        return 500;
+      });
+
+      setCurrentUser(result.user);
+
+      const now = new Date()
+
+      const token = {
+        value: result.token,
+        expiry: now.getTime() + 600000,
+      }
+
+      sessionStorage.setItem('token', JSON.stringify(token))
+      sessionStorage.setItem('user', result.user);
+
+      return result.token ? 200 : result;
     }
 
     const signOutUser = () => {
-        signOut(firebaseAuth).then(() => {
-            console.log('user signed out')
-        })
-        .catch((err) => {
-            console.log(err.message)
-        })
+      setCurrentUser(null);
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('user');
     }
 
     return (

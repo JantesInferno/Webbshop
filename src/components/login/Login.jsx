@@ -11,14 +11,14 @@ const Login = () => {
     const {anchorLogin, handleCloseLoginMenu} = useContext(NavbarContext);
     const {signInUser} = useContext(AuthContext);
     
-    const [email, setEmail] = useState({ value: ''});
+    const [username, setUsername] = useState({ value: ''});
     const [password, setPassword] = useState({ value: ''});
     const [isError, setIsError] = useState(false);
     const [authError, setAuthError] = useState('');
 
-    const states = [email, password];
+    const states = [username, password];
 
-    const validateInput = (e) => {
+    const validateInput = async (e) => {
 
         setAuthError('');
 
@@ -33,22 +33,21 @@ const Login = () => {
         })
 
         if (valid) {
-                signInUser(email.value, password.value).then(res => {
+                const res = await signInUser(username.value, password.value);
 
                 console.log(res);
 
-                if (res == 'Firebase: Error (auth/invalid-email).') {
-                    setAuthError('Felaktig emailadress');
+                if (res == 400) {
+                    setAuthError('Felaktigt användarnamn/lösenord');
                 }
-                else if (res == 'Firebase: Error (auth/invalid-credential).') {
-                    setAuthError('Felaktigt lösenord');
-                }
-                else {
+                else if (res == 200) {
                     setPassword({ value: ''});
-                    setEmail({ value: ''});
+                    setUsername({ value: ''});
                     handleCloseLoginMenu(e);
                 }
-            });
+                else {
+                    setAuthError('Det uppstod ett oväntat fel. Försök att logga in senare');
+                }
         }
         e.preventDefault();
 
@@ -79,9 +78,9 @@ const Login = () => {
                                 <h4 style={{color: '#ad443d', margin: '0', padding: '0'}}>{authError}</h4>
                                 ) : null }
 
-                                <TextField color='action' label="Email" type="email" variant="filled"
-                                value={email.value} error={ isError && email.value === "" } helperText={ isError && email.value === "" ? 'Obligatoriskt fält' : ''}
-                                onChange={event => setEmail({ value: event.target.value })}
+                                <TextField color='action' label="Username" type="text" variant="filled"
+                                value={username.value} error={ isError && username.value === "" } helperText={ isError && username.value === "" ? 'Obligatoriskt fält' : ''}
+                                onChange={event => setUsername({ value: event.target.value })}
                                 sx={{ width: '60%', input: { color: 'secondary.main'}, label: { color: 'secondary.main' } }} />
 
                                 <TextField color="action" label="Lösenord" type="password" variant="filled" 
