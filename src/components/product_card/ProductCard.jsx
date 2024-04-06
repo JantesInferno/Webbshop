@@ -11,9 +11,9 @@ const ProductCard = ({ product, addToCart }) => {
     return(
         <>
             <Card elevation={5} sx={{ bgcolor: 'primary.main', color: 'secondary.main', border: '1px solid #111' }}>
-            <div className="cardActionArea" onClick={() => navigate(`/product/${product.id}`)}>
+            <div className="cardActionArea" onClick={() => navigate(`/product/${product.productId}`)}>
                     <div className="productImageContainer">
-                            <img src={product.image_url} className="productImage"/>
+                            <img src={product.imageURL} className="productImage"/>
                     </div>
                     <Tooltip title={product.title}>
                         <div className='cardHeader'>
@@ -45,7 +45,7 @@ const ProductCard = ({ product, addToCart }) => {
                         <Typography variant={'h6'} color={'#71bf7b'} textAlign={'center'} paddingX={'16px'} paddingTop={'16px'}>{product.price} kr</Typography>
                     </CardContent>
                     </div> 
-                    <IconButton sx={{borderRadius: '0', width: '100%', gap: '5px', bgcolor: 'action.main', ':hover': {bgcolor: '#123d1e' }}} 
+                    <IconButton sx={{ position: 'inherit', borderRadius: '0', width: '100%', gap: '5px', bgcolor: 'action.main', ':hover': {bgcolor: '#123d1e' }}} 
                         onClick={() => addToCart(product)}>
 
                         {/* OM KUND KÖPT MER ÄN QUANTITY -> ÄNDRA KNAPPEN TILL "SLUT I LAGER" */}

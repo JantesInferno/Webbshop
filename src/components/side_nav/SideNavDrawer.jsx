@@ -5,38 +5,41 @@ import MonitorIcon from '@mui/icons-material/Monitor';
 import MouseIcon from '@mui/icons-material/Mouse';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
-import './sidenav.css';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { DBContext } from '../../contexts/DBContext';
-import './sidenav.css';
-import utf8 from "utf8";
 
 const SideNavDrawer = () => {
 
     const { getCategoryProducts } = useContext(DBContext);
+    
     const navigate = useNavigate();
     const location = useLocation();
 
     const menuItems = [
         {
             text: 'Bildskärmar',
+            path: 'bildskarmar',
             icon: <MonitorIcon color='secondary' />
         },
         {
             text: 'Datorer',
+            path: 'datorer',
             icon: <ComputerIcon color='secondary' />
         },
         {
             text: 'Datorkomponenter',
+            path: 'datorkomponenter',
             icon: <DeveloperBoardIcon color='secondary' />
         },
         {
             text: 'Datortillbehör',
+            path: 'datortillbehor',
             icon: <MouseIcon color='secondary' />
         },
         {
             text: 'Telefoner',
+            path: 'telefoner',
             icon: <PhoneAndroidIcon color='secondary' />
         },
     ]
@@ -62,11 +65,13 @@ const SideNavDrawer = () => {
                 <List sx={{ marginTop: '-6px' }}>
                     { menuItems.map(item => (
                         <div key={item.text}>
-                                <ListItem button className={'active'} sx={{ bgcolor: location.pathname == `/${item.text}/` ? '#111' : null , color: 'white', width: '90%', margin: '0 auto',  border: '2px solid transparent',  ':hover': { bgcolor: '#111', borderLeft: '2px solid #226e36'}}} onClick={() => {
-                                    console.log(location.pathname);
-                                    console.log(location.pathname == `/${item.text}/`)
-                                    getCategoryProducts(item.text);
-                                }}>
+                                <ListItem button sx={{ 
+                                    bgcolor: location.pathname == `/${item.path}/` ? '#111' : null,
+                                    color: 'white', width: '90%', margin: '0 auto',  border: '2px solid transparent', 
+                                    borderLeft: location.pathname == `/${item.path}/` ? '2px solid #226e36' : null, 
+                                    ':hover': { bgcolor: '#282828', borderLeft: '2px solid #226e36' }}} 
+                                    onClick={() => navigate(`${item.path}/`)}
+                                >
                                     <ListItemIcon >{item.icon}</ListItemIcon>
                                     <ListItemText primary={item.text} />
                                 </ListItem>
@@ -74,13 +79,18 @@ const SideNavDrawer = () => {
                         </div>
                     ))}
                     <Divider variant='middle' color='white' />
-                    <ListItem key={'support'} button sx={{ color: 'white', width: '90%', margin: '0 auto', border: '2px solid transparent', ':hover': { bgcolor: '#111', borderLeft: '2px solid #226e36'}}} onClick={() => navigate('/customerservice')}>
+                    <ListItem key={'support'} button sx={{ 
+                        bgcolor: location.pathname == '/customerservice/' ? '#111' : null,
+                        color: 'white', width: '90%', margin: '0 auto', border: '2px solid transparent',
+                        borderLeft: location.pathname == '/customerservice/' ? '2px solid #226e36' : null,
+                        ':hover': { bgcolor: '#282828', borderLeft: '2px solid #226e36' }}} 
+                        onClick={() => navigate('/customerservice/')}
+                    >
                         <ListItemIcon><SupportAgentIcon color='secondary'/></ListItemIcon>
                         <ListItemText primary={'Kundtjänst'} />
                     </ListItem>
                     <Divider variant='middle'  color='white' />
                 </List>
-
             </Drawer>
         </>
     )

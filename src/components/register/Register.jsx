@@ -1,8 +1,7 @@
 import { Button, TextField } from '@mui/material';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../../contexts/AppContext';
-
+import { AuthContext } from '../../contexts/AuthContext';
 
 const Register = () => {
 
@@ -12,7 +11,7 @@ const Register = () => {
     const [password, setPassword] = useState({ value: ''});
     const [isError, setIsError] = useState(false);
 
-    const {createUserAccount} = useContext(AppContext);
+    const {createUserAccount} = useContext(AuthContext);
 
     const states = [firstName, lastName, email, password];
 

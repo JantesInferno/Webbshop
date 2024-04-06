@@ -1,5 +1,6 @@
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Button, Divider, Drawer, Tooltip } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 import Badge from '@mui/material/Badge';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -10,19 +11,21 @@ import SearchBar from '../searchbar/Searchbar';
 import { MenuItem } from '@mui/material';
 import { Typography } from '@mui/material';
 import './navbar.css';
-import logo from '../../assets/topstyles_logo.png';
+import logo from '../../assets/eynet_logo.png';
 import { useContext, useEffect, useState } from 'react';
 import Login from '../login/Login';
 import { Link, useNavigate } from 'react-router-dom';
-import { AppContext } from '../../contexts/AppContext';
+import { CartContext } from '../../contexts/CartContext';
 import { NavbarContext } from '../../contexts/NavbarContext';
 import { DBContext } from '../../contexts/DBContext';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const Navbar = () => {
 
-    const {cart, addToCart, removeFromCart, removeItemFromQuantity} = useContext(AppContext);
+    const {cart, setCart, addItemToQuantity, removeFromCart, removeItemFromQuantity} = useContext(CartContext);
     const {anchorCart, handleOpenCartMenu, handleCloseCartMenu, handleOpenLoginMenu} = useContext(NavbarContext);
-    const {signOutUser, currentUser, createOrder, searchProducts} = useContext(DBContext);
+    const {createOrder, searchProducts, getAllProducts} = useContext(DBContext);
+    const {signOutUser, currentUser} = useContext(AuthContext);
 
     const [numOfCartItems, setNumOfCartItems] = useState(0);
     const [error, setError] = useState(false);
@@ -43,9 +46,23 @@ const Navbar = () => {
         }
     }, [currentUser])
 
-    const handleOrder = () => {
+    const handleOrder = async () => {
         if (currentUser != null) {
-            createOrder(cart)
+            const result = await createOrder(cart, currentUser);
+
+            console.log(result);
+
+            if (result == 401) {
+                signOutUser();
+                alert('Din användarsession har löpt ut. Vänligen logga in igen för att lägga en beställning');
+            }
+            else if (result == 500) {
+                alert('Ett oväntat fel har inträffat. Vänligen försök igen senare');
+            }
+            else {
+                alert('Beställning lagd');
+                setCart([]);
+            }
         }
     }
 
@@ -59,22 +76,34 @@ const Navbar = () => {
             <div className='navbarContainer'>
                 
                 <Link to='/' >
-                <img src={logo} className='logo' />
+                <img src={logo} className='logo' onClick={getAllProducts} />
                 </Link>
 
                 <SearchBar />
                     
                     <div className='icons'>
                         <Tooltip title="Öppna varukorgen">
-                            <Badge badgeContent={numOfCartItems} color="secondary">
+                            <Badge badgeContent={numOfCartItems} sx={{
+                                "& .MuiBadge-badge": {
+                                color: "#fff",
+                                backgroundColor: "action.main"
+                                }
+                            }}>
                                 <ShoppingCartIcon className='shoppingCartIcon' color='secondary' fontSize='large' onClick={handleOpenCartMenu}/>
                             </Badge>
                         </Tooltip>
 
-                        {currentUser != null ? (
-                            <Button className='loginIcon' variant="contained" sx={{ textTransform: 'none', color: 'primary.main', bgcolor: 'secondary.main', border: 'none', transition: '0.3s', ':hover': { bgcolor: '#913030', color: 'secondary.main'} }} endIcon={<LogoutIcon />} onClick={signOutUser}>
-                                <Typography textAlign="center" sx={{ fontWeight: 'bold' }}>{currentUser.displayName}</Typography>
-                            </Button>
+                        {currentUser != null && currentUser.name != null ? (
+                            <>
+                            <Tooltip title={currentUser.displayName}>
+                                <Avatar sx={{ bgcolor: 'action.main', padding: '5px', height: '40px', width: '40px'}}>
+                                    {`${currentUser.name.split(' ')[0][0]}${currentUser.name.split(' ')[1][0]}`}
+                                </Avatar>
+                            </Tooltip>
+                            <Tooltip title="Logga ut">
+                                <LogoutIcon className='logOutIcon' onClick={signOutUser} />
+                            </Tooltip>
+                            </>
                         ) : (
                             <Button className='loginIcon' variant="contained" sx={{ textTransform: 'none', color: 'primary.main', bgcolor: 'secondary.main', border: 'none', transition: '0.3s', ':hover': { bgcolor: 'action.main', color: 'secondary.main'} }} endIcon={<LoginIcon  />} onClick={handleOpenLoginMenu}>
                                 <Typography textAlign="center" sx={{ fontWeight: 'bold' }}>Logga in</Typography>
@@ -94,7 +123,7 @@ const Navbar = () => {
                             height: 'auto',
                             top: 108,
                             marginRight: '25px',
-                            bgcolor: 'primary.main',
+                            bgcolor: 'primary.main'
                         }
                     }}
                     >
@@ -110,14 +139,14 @@ const Navbar = () => {
 
                         {cart.map((product) => 
                             (
-                                <div className='row' key={product.id}>
-                                    <MenuItem sx={{width: '45%', bgcolor: 'primary.main', color: 'secondary.main', border: '2px solid transparent', ':hover': { bgcolor: '#111', borderLeft: '2px solid #226e36'}}} key={product.id} onClick={() => handleCartClick(product)}>
+                                <div className='row' key={product.productId}>
+                                    <MenuItem sx={{minWidth: '45%', width: '45%', bgcolor: 'primary.main', color: 'secondary.main', border: '2px solid transparent', ':hover': { bgcolor: '#111', borderLeft: '2px solid #226e36'}}} onClick={() => handleCartClick(product)}>
                                     <Typography noWrap textAlign="left">{product.title}</Typography>
                                     </MenuItem>
-                                    <div className='count' style={{marginLeft: '0px'}}>
+                                    <div className='count'>
                                         <RemoveIcon sx={{cursor: 'pointer', color: 'secondary.main', borderRadius: '50%', padding: '2px', ':hover': {bgcolor: '#111'} }} fontSize='small' onClick={() => removeItemFromQuantity(product)} />
                                         <Typography textAlign="center" sx={{ color: 'secondary.main' }}>{product.quantity}</Typography>
-                                        <AddIcon sx={{cursor: 'pointer', color: 'secondary.main', borderRadius: '50%', padding: '2px', ':hover': {bgcolor: '#111'} }} fontSize='small' onClick={() => addToCart(product)} />
+                                        <AddIcon sx={{cursor: 'pointer', color: 'secondary.main', borderRadius: '50%', padding: '2px', ':hover': {bgcolor: '#111'} }} fontSize='small' onClick={() => addItemToQuantity(product)} />
                                     </div>
                                     <div className='price-delete'>
                                         <Typography className='price' textAlign="right" sx={{marginLeft: '25px', width: '70px', color: 'secondary.main' }}>{product.price.toLocaleString().replace(',', ' ')} kr</Typography>
@@ -127,19 +156,20 @@ const Navbar = () => {
                             )
                         )}
                         
-                    <Divider color='white'/>
-                    <div className='cartColumnFooters'>
-                            <h4>Summa: </h4>
-                            <h4>{cart.reduce((n, {price, quantity}) => n + (price * quantity), 0).toLocaleString().replace(',', ' ')} kr</h4>
-                    </div>
-                    {error ? (
-                        <h4 style={{position: 'relative', margin: '0 auto', bottom: '50px',color: '#ad443d', padding: '0'}}>Logga in för att lägga en order</h4>
-                    ) : null }
-                    <Button sx={{bottom: 0, width: '100%', position: 'absolute', color: 'secondary.main', bgcolor: 'action.main', ':hover': { bgcolor: '#123d1e' }}}
-                    onClick={handleOrder}
-                    >
-                        Till kassan
-                    </Button>
+                        <Divider color='white'/>
+                        <div className='cartColumnFooters'>
+                                <h4>Summa: </h4>
+                                <h4>{cart.reduce((n, {price, quantity}) => n + (price * quantity), 0).toLocaleString().replace(',', ' ')} kr</h4>
+                        </div>
+
+                        {error ? (
+                            <h4 style={{position: 'relative', margin: '0 auto', bottom: '50px',color: '#ad443d', padding: '0'}}>Logga in för att lägga en order</h4>
+                        ) : null }
+                        <Button sx={{bottom: 0, width: '100%', position: 'absolute', color: 'secondary.main', bgcolor: 'action.main', ':hover': { bgcolor: '#123d1e' }}}
+                        onClick={handleOrder}
+                        >
+                            Lägg beställning
+                        </Button>
                     </Drawer>
 
                     <Login />

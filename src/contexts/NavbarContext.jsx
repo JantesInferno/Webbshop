@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
-import { AppContext } from './AppContext';
 import { DBContext } from './DBContext';
+import { useNavigate } from 'react-router-dom';
 
 export const NavbarContext = createContext();
 
@@ -13,11 +13,14 @@ export const NavbarContextProvider = ({children}) => {
     const [suggestions, setSuggestions] = useState([]);
     const [showAutoComplete, setShowAutoComplete] = useState(false);
 
+    const navigate = useNavigate();
+
 
     const handleAutoComplete = (e) => {
         setShowAutoComplete(false);
         if (e.keyCode === 13) {
             searchProducts(e.target.value);
+            navigate('/');
         }
         else if (productsAutocomplete.length > 0) {
             let searchSuggestions = productsAutocomplete.filter(d => {
@@ -25,7 +28,6 @@ export const NavbarContextProvider = ({children}) => {
                     setShowAutoComplete(true);
                     return {title: d.title, id: d.id};
                 }
-
             })
             if (e.target.value.length > 0) {
                 setSuggestions(searchSuggestions);

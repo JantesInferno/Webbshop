@@ -1,10 +1,10 @@
-.searchAutoCompleteContainer {
+.searchBarContainer {
   position: relative;
   width: 25%;
   height: 100%;
   top: 25%;
 }
-.searchAutoCompleteContainer .searchContainer {
+.searchBarContainer .searchContainer, .searchBarContainer .searchContainerAutoComplete {
   display: flex;
   width: 100%;
   height: 50%;
@@ -12,11 +12,11 @@
   background-color: #1d1d1d;
   border-radius: 25px;
 }
-.searchAutoCompleteContainer .searchContainer:focus-within {
+.searchBarContainer .searchContainer:focus-within, .searchBarContainer .searchContainerAutoComplete:focus-within {
   outline: 2px solid white;
   border: none;
 }
-.searchAutoCompleteContainer .searchContainer .searchInput {
+.searchBarContainer .searchContainer .searchInput, .searchBarContainer .searchContainerAutoComplete .searchInput {
   display: inline-block;
   width: 90%;
   font-size: 1.1em;
@@ -26,68 +26,31 @@
   padding-left: 25px;
   border-radius: 25px;
 }
-.searchAutoCompleteContainer .searchContainer .searchInput:focus {
+.searchBarContainer .searchContainer .searchInput:focus, .searchBarContainer .searchContainerAutoComplete .searchInput:focus {
   outline: none;
 }
-.searchAutoCompleteContainer .searchContainer .searchButton {
+.searchBarContainer .searchContainer .searchButton, .searchBarContainer .searchContainerAutoComplete .searchButton {
   height: 40px;
   width: 40px;
   border-radius: 50%;
   background-color: inherit;
-  padding: 5px;
+  padding: 7px 5px 3px 7px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
-.searchAutoCompleteContainer .searchContainer .searchButton:hover {
+.searchBarContainer .searchContainer .searchButton:hover, .searchBarContainer .searchContainerAutoComplete .searchButton:hover {
   background-color: #226e36;
 }
-.searchAutoCompleteContainer .searchContainer .searchButton:hover .searchIcon {
+.searchBarContainer .searchContainer .searchButton:hover .searchIcon, .searchBarContainer .searchContainerAutoComplete .searchButton:hover .searchIcon {
   margin: 5px;
 }
-.searchAutoCompleteContainer .searchContainer .searchButton .searchIcon {
+.searchBarContainer .searchContainer .searchButton .searchIcon, .searchBarContainer .searchContainerAutoComplete .searchButton .searchIcon {
   margin: 5px;
 }
-.searchAutoCompleteContainer .searchContainerAutoComplete {
-  display: flex;
-  width: 100%;
-  height: 50%;
-  align-items: center;
-  background-color: #1d1d1d;
+.searchBarContainer .searchContainerAutoComplete {
   border-radius: 25px 25px 0 0;
   outline: 2px solid white;
 }
-.searchAutoCompleteContainer .searchContainerAutoComplete:focus-within {
-  outline: 2px solid white;
-  border: none;
-}
-.searchAutoCompleteContainer .searchContainerAutoComplete .searchInput {
-  display: inline-block;
-  width: 90%;
-  font-size: 1.1em;
-  background-color: inherit;
-  border: none;
-  padding: 5px;
-  padding-left: 25px;
-  border-radius: 25px;
-}
-.searchAutoCompleteContainer .searchContainerAutoComplete .searchInput:focus {
-  outline: none;
-}
-.searchAutoCompleteContainer .searchContainerAutoComplete .searchButton {
-  height: 40px;
-  width: 40px;
+.searchBarContainer .searchContainerAutoComplete .searchButton {
   border-radius: 0 50% 0 0;
-  background-color: inherit;
-  padding: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-.searchAutoCompleteContainer .searchContainerAutoComplete .searchButton:hover {
-  background-color: #226e36;
-}
-.searchAutoCompleteContainer .searchContainerAutoComplete .searchButton:hover .searchIcon {
-  margin: 5px;
-}
-.searchAutoCompleteContainer .searchContainerAutoComplete .searchButton .searchIcon {
-  margin: 5px;
 }/*# sourceMappingURL=searchbar.css.map */

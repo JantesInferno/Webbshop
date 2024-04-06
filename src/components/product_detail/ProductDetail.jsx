@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { AppContext } from "../../contexts/AppContext";
+import { CartContext } from "../../contexts/CartContext";
 import { DBContext } from "../../contexts/DBContext";
 import { useContext, useEffect} from "react";
 import { Card, CardContent, IconButton, Typography } from "@mui/material";
@@ -10,23 +10,17 @@ const ProductDetail = () => {
 
     const {productId} = useParams();
     const {data} = useContext(DBContext);
-    const {addToCart} = useContext(AppContext);
+    const {addToCart} = useContext(CartContext);
 
     const navigate = useNavigate();
 
-    let product = data.find((d) => d.id === productId);
-
-    useEffect(() => {
-        if (product == undefined) {
-            navigate('/');
-        }
-    }, [data])
+    let product = data.find((d) => d.productId == productId);
 
     return(
         <>
             <Card elevation={5} sx={{ bgcolor: 'primary.main', color: 'secondary.main', border: '1px solid #111', width: '50%', margin: 'auto auto' }}>
                     <div className="productDetailImageContainer">
-                            <img src={product ? product.image_url : null} className="productDetailImage"/>
+                            <img src={product ? product.imageURL : null} className="productDetailImage"/>
                     </div>
                         <div className='cardHeader'>
                             <Typography variant={'h4'} color={'primary'} textAlign={'center'} paddingX={'16px'} paddingTop={'16px'} sx={{
@@ -47,7 +41,7 @@ const ProductDetail = () => {
                             }}>
                             {product ? product.subtitle : null}
                         </Typography>
-                        <Typography variant="body1" textAlign={'center'} sx={{
+                        <Typography variant="body1" textAlign={'left'} sx={{
                             height: '3em',
                             marginBottom: '5em'
                             }}>

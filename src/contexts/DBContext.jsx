@@ -1,170 +1,132 @@
-import { createContext, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { initializeApp } from "firebase/app";
-import { AppContext } from './AppContext';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { CartContext } from './CartContext';
 
 export const DBContext = createContext();
 
-import { 
-    getFirestore, 
-    collection, 
-    onSnapshot, 
-    query, 
-    where,
-    addDoc,
-    serverTimestamp,
-  } from "firebase/firestore";
-  
-  import { 
-    getAuth, 
-    createUserWithEmailAndPassword, 
-    signOut,
-    signInWithEmailAndPassword,
-    updateProfile
-  } from 'firebase/auth'
-
-  const firebaseConfig = {
-    apiKey: import.meta.env.VITE_REACT_APP_API_KEY ,
-    authDomain: import.meta.env.VITE_REACT_APP_AUTH_DOMAIN,
-    projectId: import.meta.env.VITE_REACT_APP_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_REACT_APP_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_REACT_APP_MESSAGING_SENDER_ID,
-    appId: import.meta.env.VITE_REACT_APP_APP_ID
-  };
-  
-  initializeApp(firebaseConfig);
-
-  const db = getFirestore(); 
-   
-  const auth = getAuth();
-
 export const DBContextProvider = ({children}) => {
     
-    const setCart = useContext(AppContext);
+    const apiUrl = import.meta.env.VITE_REACT_APP_DB_URL;
+
+    const setCart = useContext(CartContext);
   
     const [data, setData] = useState([]);
     const [productsAutocomplete, setProductsAutocomplete] = useState([]);
-    const [searchTitle, setSearchTitle] = useState("Visar alla produkter");
-    const [currentUser, setCurrentUser] = useState();
+    const [searchTitle, setSearchTitle] = useState('');
 
-    const navigate = useNavigate();
+    const location = useLocation();
 
-    const onAppLoad = () => {
-        onSnapshot(collection(db, 'products'), (snapshot) => {
-            const products = [];
-            snapshot.docs.map((doc) => {
-                products.push({ ...doc.data(), id: doc.id});
-            })
-            const productsTitleId= [];
-            products.map(product => {
-                productsTitleId.push({ title: product.title, id: product.id });
-            })
-            setData(products);
-            setProductsAutocomplete(productsTitleId);
-        })
-    }
-
-    const createUserAccount = async (email, password, firstname, lastname) => {
-        try {
-          await createUserWithEmailAndPassword(auth, email, password)
-          .catch((err) =>
-            console.log(err)
-          );
-          await updateProfile(auth.currentUser, { displayName: `${firstname} ${lastname}` })
-          .catch(
-            (err) => console.log(err)
-          );
-        } catch (err) {
-          console.log(err);
-        }
+    useEffect(() => {
+      if (location.pathname == '/') {
+        getAllProducts();
       }
-    
-      const signInUser = async (email, password) => {
-        let error;
-        await signInWithEmailAndPassword(auth, email, password)
-        .then((cred) => {
-          console.log('user logged in:', cred.user)
-        })
-        .catch((err) => {
-          console.log(err.message)
-          error = err.message;
-        })
-        return error;
-      }
+    }, [])
 
-      const signOutUser = () => {
-        signOut(auth).then(() => {
-          console.log('user signed out')
-         })
-         .catch((err) => {
-           console.log(err.message)
-         })
-      }
     
-      const createOrder = (cart) => {
-    
-        const sum = cart.reduce((n, {price, quantity}) => n + (price * quantity), 0);
-        console.log(cart);
-        console.log(sum);
-    
-        addDoc(collection(db, 'orders'), {
-          created: serverTimestamp(),
-          products: cart,
-          sum: sum,
-          customerid: currentUser.uid,
-          customeremail: currentUser.email,
-          customername: currentUser.displayName
-        })
-        .then(() => {
-          alert('Beställning lagd')
-          setCart([]);
-        })
-    }
+    const createOrder = async (cart, user) => {
 
-    const searchProducts = (input) => {
-        const q = query(
-          collection(db, 'products'),
-          where('searchterm', '>=', input.toLowerCase()),
-          where('searchterm', '<=', input.toLowerCase() + '\uf8ff')
-        )
-    
-        onSnapshot(q, (snapshot) => {
-          const products = [];
-          snapshot.docs.map((doc) => {
-            products.push({ ...doc.data(), id: doc.id})
-          })
-          setSearchTitle(`Visar ${products.length} resultat för '${input}':`);
-          setData(products);
-        });
-    }
 
-    const getCategoryProducts = (category) => {
-      setData([]);
-  
-      const q = query(collection(db, 'products'), where("category", "==", category))
-  
-      onSnapshot(q, (snapshot) => {
-        const products = [];
-        snapshot.docs.map((doc) => {
-          products.push({ ...doc.data(), id: doc.id})
-        })
-        setSearchTitle(`${category}`);
-        setData(products);
+      let productDict = Object.assign({}, ...cart.map((product) => ({[product.productId]: product.quantity})));
+      
+      const token = sessionStorage.getItem('token');
+
+      const url = `${apiUrl}/api/create-order`;
+
+      const result = await fetch(url, {
+        method: "POST", 
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ "productsQuantity": productDict})
+      })
+      .then(response => {
+        if (response.ok)
+          return response.json();
+        else
+          return response.status;
+      })
+      .catch(error => {
+        return 500;
       });
-      navigate(`${category}/`);
+
+      return result;
+    }
+
+    const searchProducts = async (input) => {
+
+      const url = `${apiUrl}/api/get-products-by-name/${input}`;
+
+      const result = await fetch(url)
+      .then(response => {
+        if (response.ok)
+          return response.json();
+        else
+          console.log(response.status);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+      setSearchTitle(`Visar ${result.length} resultat för '${input}':`);
+      setData(result);
+
+    }
+
+    const getCategoryProducts = async (categoryId, categoryName) => {
+
+      const url = `${apiUrl}/api/get-category-by-id/${categoryId}`;
+
+      const result = await fetch(url)
+      .then(response => {
+        if (response.ok)
+          return response.json();
+        else
+          console.log(response.status);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+      setSearchTitle(`${categoryName}`);
+      setData(result.products);
+
+    }
+
+    const getAllProducts = async () => {
+      const url = `${apiUrl}/api/get-all-products`;
+
+      const products = await fetch(url)
+      .then(response => {
+        if (response.ok)
+          return response.json();
+        else
+          console.log(response.status);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+      const productsTitleId = [];
+
+      products.map(product => {
+        productsTitleId.push({ title: product.title, id: product.productId});
+      })
+
+      setData(products);
+      setSearchTitle('Visar alla produkter');
+      setProductsAutocomplete(productsTitleId);
+
     }
     
   
     return (
         <DBContext.Provider value={{ 
-            onAppLoad,
             data, setData,
             productsAutocomplete, setProductsAutocomplete,
             searchTitle, setSearchTitle,
-            currentUser, setCurrentUser,
-            createUserAccount,
-            signInUser, signOutUser,
             getCategoryProducts, 
+            getAllProducts,
             searchProducts,
             createOrder
           }}>

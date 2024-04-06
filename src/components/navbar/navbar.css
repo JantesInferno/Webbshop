@@ -1,6 +1,7 @@
 .logo {
   margin-left: 18px;
   width: 250px;
+  height: auto;
 }
 
 .navbarContainer {
@@ -14,9 +15,10 @@
 .navbarContainer .icons {
   margin-right: 8px;
   display: flex;
+  justify-content: space-evenly;
   width: 20%;
   gap: 5%;
-  justify-content: space-evenly;
+  cursor: pointer;
 }
 .navbarContainer .icons .shoppingCartIcon {
   height: 40px;
@@ -26,6 +28,16 @@
   transition: background-color 0.3s;
 }
 .navbarContainer .icons .shoppingCartIcon:hover {
+  background-color: #226e36;
+}
+.navbarContainer .icons .logOutIcon {
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  padding: 7px 5px 7px 9px;
+  transition: background-color 0.3s;
+}
+.navbarContainer .icons .logOutIcon:hover {
   background-color: #226e36;
 }
 
@@ -58,6 +70,7 @@
 .row .count {
   display: flex;
   justify-content: center;
+  margin-left: 0px;
   gap: 10px;
 }
 .row .price-delete {
