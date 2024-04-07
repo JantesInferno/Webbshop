@@ -1,8 +1,28 @@
-# React + Vite
+# React Webshop with Firebase Integration
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<img src='./Github_Images/homepage.png' height=200px> <img src='./Github_Images/login.png' height=200px> <img src='./Github_Images/cart.png' height=200px>
+<img src='./Github_Images/card.png' height=200px>
+<img src='./Github_Images/search.png' height=200px>
 
-Currently, two official plugins are available:
+## Project Overview
+This repository contains a webshop built using React with Firebase integration for database and authentication. The webshop provides essential e-commerce functionalities, including item search with autocomplete, adding items to the shopping cart, adjusting item quantities, various product categories, user registration, and login.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+### Search Functionality:
+Utilizes autocomplete for efficient and user-friendly item search.
+
+### Shopping Cart:
+Allows users to add items to their shopping cart.
+Provides options to increase, decrease, or remove items from the cart.
+
+### Product Categories:
+Implements different categories to organize and display various items.
+
+### User Authentication:
+Enables user registration for new customers.
+Facilitates user login for a personalized shopping experience.
+
+### Technologies Used
+React: Front-end development framework for building the user interface.
+
+Firebase: Cloud-based platform for real-time database storage and user authentication.
