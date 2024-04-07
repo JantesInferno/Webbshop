@@ -61,14 +61,7 @@ export const AuthContextProvider = ({children}) => {
 
       setCurrentUser(result.user);
 
-      const now = new Date()
-
-      const token = {
-        value: result.token,
-        expiry: now.getTime() + 600000,
-      }
-
-      sessionStorage.setItem('token', JSON.stringify(token))
+      sessionStorage.setItem('token', result.token)
       sessionStorage.setItem('user', result.user);
 
       return result.token ? 200 : result;

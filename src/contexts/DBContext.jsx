@@ -27,7 +27,7 @@ export const DBContextProvider = ({children}) => {
 
 
       let productDict = Object.assign({}, ...cart.map((product) => ({[product.productId]: product.quantity})));
-      
+
       const token = sessionStorage.getItem('token');
 
       const url = `${apiUrl}/api/create-order`;
