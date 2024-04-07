@@ -11,7 +11,7 @@ const ProductCard = ({ product, addToCart }) => {
     return(
         <>
             <Card elevation={5} sx={{ bgcolor: 'primary.main', color: 'secondary.main', border: '1px solid #111' }}>
-            <div className="cardActionArea" onClick={() => navigate(`/product/${product.productId}`)}>
+            <div className="cardActionArea" onClick={() => navigate(`/Webbshop/product/${product.productId}`)}>
                     <div className="productImageContainer">
                             <img src={product.imageURL} className="productImage"/>
                     </div>

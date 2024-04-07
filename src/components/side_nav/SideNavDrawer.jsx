@@ -66,11 +66,11 @@ const SideNavDrawer = () => {
                     { menuItems.map(item => (
                         <div key={item.text}>
                                 <ListItem button sx={{ 
-                                    bgcolor: location.pathname == `/${item.path}/` ? '#111' : null,
+                                    bgcolor: location.pathname == `/Webbshop/${item.path}/` ? '#111' : null,
                                     color: 'white', width: '90%', margin: '0 auto',  border: '2px solid transparent', 
-                                    borderLeft: location.pathname == `/${item.path}/` ? '2px solid #226e36' : null, 
+                                    borderLeft: location.pathname == `/Webbshop/${item.path}/` ? '2px solid #226e36' : null, 
                                     ':hover': { bgcolor: '#282828', borderLeft: '2px solid #226e36' }}} 
-                                    onClick={() => navigate(`${item.path}/`)}
+                                    onClick={() => navigate(`/Webbshop/${item.path}/`)}
                                 >
                                     <ListItemIcon >{item.icon}</ListItemIcon>
                                     <ListItemText primary={item.text} />
@@ -80,11 +80,11 @@ const SideNavDrawer = () => {
                     ))}
                     <Divider variant='middle' color='white' />
                     <ListItem key={'support'} button sx={{ 
-                        bgcolor: location.pathname == '/customerservice/' ? '#111' : null,
+                        bgcolor: location.pathname == '/Webbshop/customerservice/' ? '#111' : null,
                         color: 'white', width: '90%', margin: '0 auto', border: '2px solid transparent',
-                        borderLeft: location.pathname == '/customerservice/' ? '2px solid #226e36' : null,
+                        borderLeft: location.pathname == '/Webbshop/customerservice/' ? '2px solid #226e36' : null,
                         ':hover': { bgcolor: '#282828', borderLeft: '2px solid #226e36' }}} 
-                        onClick={() => navigate('/customerservice/')}
+                        onClick={() => navigate('/Webbshop/customerservice/')}
                     >
                         <ListItemIcon><SupportAgentIcon color='secondary'/></ListItemIcon>
                         <ListItemText primary={'Kundtjänst'} />

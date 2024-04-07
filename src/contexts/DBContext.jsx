@@ -17,7 +17,7 @@ export const DBContextProvider = ({children}) => {
     const location = useLocation();
 
     useEffect(() => {
-      if (location.pathname == '/') {
+      if (location.pathname == '/Webbshop/') {
         getAllProducts();
       }
     }, [])
