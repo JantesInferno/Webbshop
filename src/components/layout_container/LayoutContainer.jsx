@@ -21,7 +21,8 @@ const LayoutContainer = () => {
     const {addToCart} = useContext(CartContext);
 
     useEffect(() => {
-        if (category != null) {
+        if (category != null && category.toLowerCase() != "webbshop") {
+            console.log(category);
             const currentCategory = categories.filter((item) => {
                 return item.url === category;
             })
