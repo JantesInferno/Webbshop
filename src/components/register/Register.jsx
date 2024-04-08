@@ -32,8 +32,17 @@ const Register = () => {
         })
 
         if (valid) {
-            createUserAccount(name.value, address.value, city.value, email.value, username.value, password.value);
-            navigate('/');
+            const result = createUserAccount(name.value, username.value, email.value, password.value, address.value, city.value);
+            if (result == 400) {
+                alert('Användarnamn och email måste vara unika');
+            }
+            else if (result == 500) {
+                alert('Ett oväntat fel uppstod. Vänligen försök igen senare');
+            }
+            else {
+                alert(result);
+                navigate('/');
+            }
         }
         else {
             e.preventDefault();
