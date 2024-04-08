@@ -19,7 +19,7 @@ const Register = () => {
 
     const navigate = useNavigate();
 
-    const createUser = (e) => {
+    const createUser = async (e) => {
 
         setIsError(false);
 
@@ -32,7 +32,7 @@ const Register = () => {
         })
 
         if (valid) {
-            const result = createUserAccount(name.value, username.value, email.value, password.value, address.value, city.value);
+            const result = await createUserAccount(name.value, username.value, email.value, password.value, address.value, city.value);
             if (result == 400) {
                 alert('Användarnamn och email måste vara unika');
             }
