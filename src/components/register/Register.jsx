@@ -36,12 +36,12 @@ const Register = () => {
             if (result == 400) {
                 alert('Användarnamn och email måste vara unika');
             }
-            else if (result == 500) {
-                alert('Ett oväntat fel uppstod. Vänligen försök igen senare');
+            else if (result == 200) {
+                alert(`Nytt konto för ${name.value} skapat`);
+                navigate('/');
             }
             else {
-                alert(result);
-                navigate('/');
+                alert('Ett oväntat fel uppstod. Vänligen försök igen senare');
             }
         }
         else {

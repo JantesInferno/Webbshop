@@ -29,7 +29,7 @@ export const AuthContextProvider = ({children}) => {
       })
       .then(response => {
         if (response.ok)
-          return response.json();
+          return 200;
         else
           return response.status;
       })
