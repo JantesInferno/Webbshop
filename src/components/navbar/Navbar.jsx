@@ -68,14 +68,14 @@ const Navbar = () => {
 
     const handleCartClick = (product) => {
         searchProducts(product.title);
-        navigate(`/Webbshop/product/${product.id}`);
+        navigate(`/product/${product.id}`);
     }
 
     return(
         <>
             <div className='navbarContainer'>
                 
-                <Link to='/Webbshop/' >
+                <Link to='/' >
                 <img src={logo} className='logo' onClick={getAllProducts} />
                 </Link>
 

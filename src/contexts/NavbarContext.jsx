@@ -20,7 +20,7 @@ export const NavbarContextProvider = ({children}) => {
         setShowAutoComplete(false);
         if (e.keyCode === 13) {
             searchProducts(e.target.value);
-            navigate('/Webbshop/');
+            navigate('/');
         }
         else if (productsAutocomplete.length > 0) {
             let searchSuggestions = productsAutocomplete.filter(d => {
