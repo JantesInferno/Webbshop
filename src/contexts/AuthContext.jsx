@@ -13,7 +13,7 @@ export const AuthContextProvider = ({children}) => {
 
       const url = `${apiUrl}/api/register`;
 
-      await fetch(url, {
+      const result = await fetch(url, {
         method: "POST", 
         headers: {
             "Content-Type": "application/json"
@@ -29,13 +29,15 @@ export const AuthContextProvider = ({children}) => {
       })
       .then(response => {
         if (response.ok)
-          console.log(response.json());
+          return response.json();
         else
-          console.log(response.status);
+          return response.status;
       })
       .catch(error => {
-        console.log(error);
+        return 500;
       });
+
+      return result;
     }
     
     const signInUser = async (username, password) => {
