@@ -28,6 +28,9 @@ export const AuthContextProvider = ({children}) => {
         })
       })
       .then(response => {
+        console.log(response);
+        console.log(response.ok);
+        console.log(response.json());
         if (response.ok)
           return 200;
         else

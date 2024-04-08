@@ -97,7 +97,7 @@ const Navbar = () => {
                             <>
                             <Tooltip title={currentUser.displayName}>
                                 <Avatar sx={{ bgcolor: 'action.main', padding: '5px', height: '40px', width: '40px'}}>
-                                    {`${currentUser.name.split(' ')[0][0]}${currentUser.name.split(' ')[1][0]}`}
+                                    {currentUser.name.split(/\W+/).length === 2 ? `${currentUser.name.split(' ')[0][0]}${currentUser.name.split(' ')[1][0]}` : `${currentUser.name.split(' ')[0][0]}`}
                                 </Avatar>
                             </Tooltip>
                             <Tooltip title="Logga ut">
