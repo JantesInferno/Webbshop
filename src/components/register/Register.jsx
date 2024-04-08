@@ -5,15 +5,17 @@ import { AuthContext } from '../../contexts/AuthContext';
 
 const Register = () => {
 
-    const [firstName, setFirstName] = useState({ value: ''});
-    const [lastName, setLastName] = useState({ value: ''});
+    const [name, setName] = useState({ value: ''});
+    const [address, setAddress] = useState({ value: ''});
+    const [city, setCity] = useState({ value: ''});
+    const [username, setUsername] = useState({ value: ''});
     const [email, setEmail] = useState({ value: ''});
     const [password, setPassword] = useState({ value: ''});
     const [isError, setIsError] = useState(false);
 
     const {createUserAccount} = useContext(AuthContext);
 
-    const states = [firstName, lastName, email, password];
+    const states = [name, address, city, email, username, password];
 
     const navigate = useNavigate();
 
@@ -30,7 +32,7 @@ const Register = () => {
         })
 
         if (valid) {
-            createUserAccount(email.value, password.value, firstName.value, lastName.value);
+            createUserAccount(name.value, address.value, city.value, email.value, username.value, password.value);
             navigate('/');
         }
         else {
@@ -46,21 +48,33 @@ const Register = () => {
             <div className='register' style={{ margin: '0 auto'}}>
                 <form className='form'>
                 <h1>Skapa nytt konto</h1>
-                <TextField color="action" label="Förnamn" variant="filled" 
-                value={firstName.value} error={ isError && firstName.value === "" } helperText={ isError && firstName.value === "" ? 'Obligatoriskt fält' : ''} 
-                onChange={event => setFirstName({ value: event.target.value })} 
+                <TextField color="action" label="Namn" variant="filled" 
+                value={name.value} error={ isError && name.value === "" } helperText={ isError && name.value === "" ? 'Obligatoriskt fält' : ''} 
+                onChange={event => setName({ value: event.target.value })} 
                 sx={{ width: '60%', marginBottom: '20px', input: { color: 'secondary.main' }, label: { color: 'secondary.main' } }} 
                 />
 
-                <TextField color="action" label="Efternamn" variant="filled" 
-                value={lastName.value} error={ isError && lastName.value === "" } helperText={ isError && lastName.value === "" ? 'Obligatoriskt fält' : ''} 
-                onChange={event => setLastName({ value: event.target.value })} 
+                <TextField color="action" label="Adress" variant="filled" 
+                value={address.value} error={ isError && address.value === "" } helperText={ isError && address.value === "" ? 'Obligatoriskt fält' : ''} 
+                onChange={event => setAddress({ value: event.target.value })} 
+                sx={{ width: '60%', marginBottom: '20px', input: { color: 'secondary.main' }, label: { color: 'secondary.main' } }} 
+                />
+
+                <TextField color="action" label="Ort" variant="filled" 
+                value={city.value} error={ isError && city.value === "" } helperText={ isError && city.value === "" ? 'Obligatoriskt fält' : ''} 
+                onChange={event => setCity({ value: event.target.value })} 
                 sx={{ width: '60%', marginBottom: '20px', input: { color: 'secondary.main' }, label: { color: 'secondary.main' } }} 
                 />
 
                 <TextField color="action" label="Email" variant="filled" 
                 value={email.value} error={ isError && email.value === "" } helperText={ isError && email.value === "" ? 'Obligatoriskt fält' : ''} 
                 onChange={event => setEmail({ value: event.target.value })} 
+                sx={{ width: '60%', marginBottom: '20px', input: { color: 'secondary.main' }, label: { color: 'secondary.main' } }} 
+                />
+
+                <TextField color="action" label="Användarnamn" variant="filled" 
+                value={username.value} error={ isError && username.value === "" } helperText={ isError && username.value === "" ? 'Obligatoriskt fält' : ''} 
+                onChange={event => setUsername({ value: event.target.value })} 
                 sx={{ width: '60%', marginBottom: '20px', input: { color: 'secondary.main' }, label: { color: 'secondary.main' } }} 
                 />
 
