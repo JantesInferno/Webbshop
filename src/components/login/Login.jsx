@@ -37,8 +37,11 @@ const Login = () => {
 
                 console.log(res);
 
-                if (res == 400) {
+                if (res == 401) {
                     setAuthError('Felaktigt användarnamn/lösenord');
+                }
+                else if (res == 400) {
+                    setAuthError('Fyll i alla fält');
                 }
                 else if (res == 200) {
                     setPassword({ value: ''});

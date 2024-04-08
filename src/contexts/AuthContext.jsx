@@ -16,7 +16,7 @@ export const AuthContextProvider = ({children}) => {
       const result = await fetch(url, {
         method: "POST", 
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         },
         body: JSON.stringify({ 
           "name": name, 
@@ -34,6 +34,7 @@ export const AuthContextProvider = ({children}) => {
           return response.status;
       })
       .catch(error => {
+        console.log(error);
         return 500;
       });
 
