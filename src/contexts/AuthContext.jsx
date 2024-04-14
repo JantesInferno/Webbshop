@@ -74,13 +74,13 @@ export const AuthContextProvider = ({children}) => {
 
       setCurrentUser(null);
 
-      await fetch(url, {
+      const result = await fetch(url, {
         method: "POST",
         credentials: 'include',
       })
       .then(response => {
         if (response.ok)
-          response.json();
+          console.log(response.json());
         else
           console.log(response.status);
       })

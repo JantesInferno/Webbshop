@@ -35,8 +35,6 @@ const Login = () => {
         if (valid) {
                 const res = await signInUser(username.value, password.value);
 
-                console.log(res);
-
                 if (res == 401) {
                     setAuthError('Felaktigt användarnamn/lösenord');
                 }
