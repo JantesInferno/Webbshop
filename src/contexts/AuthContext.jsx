@@ -80,9 +80,12 @@ export const AuthContextProvider = ({children}) => {
       })
       .then(response => {
         if (response.ok)
-          console.log(response.json());
+          response.json();
         else
           console.log(response.status);
+      })
+      .then(data => {
+        console.log(data);
       })
       .catch(error => {
         console.log(500);
