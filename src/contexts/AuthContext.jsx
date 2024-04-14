@@ -76,6 +76,7 @@ export const AuthContextProvider = ({children}) => {
 
       await fetch(url, {
         method: "POST",
+        credentials: 'include',
       })
       .then(response => {
         if (response.ok)
