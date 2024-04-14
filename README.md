@@ -1,11 +1,11 @@
 # React Webshop with Azure Integration
 
 <img src='./Github_Images/homepage.png' height=200px> <img src='./Github_Images/login.png' height=200px> <img src='./Github_Images/cart.png' height=200px>
-<img src='./Github_Images/card.png' height=200px>
-<img src='./Github_Images/search.png' height=200px>
 
 ## Project Overview
-This repository contains a webshop built using React for the front end and ASP.NET Core Web API for the backend, with Azure App Service and Azure SQL for hosting and database respectively. The webshop provides essential e-commerce functionalities, including item search with autocomplete, adding items to the shopping cart, adjusting item quantities, various product categories, user registration, and login.
+This repository contains a webshop built using React for the front end and ASP.NET Core Web API(https://github.com/JantesInferno/Webbshop-API) for the backend, 
+with Azure App Service and Azure SQL for hosting and database respectively. 
+The webshop provides essential e-commerce functionalities, including item search with autocomplete, adding items to the shopping cart, adjusting item quantities, various product categories, user registration, and login.
 
 ## Features
 ### Search Functionality:
