@@ -50,8 +50,6 @@ const Navbar = () => {
         if (currentUser != null) {
             const result = await createOrder(cart);
 
-            console.log(result);
-
             if (result == 401) {
                 signOutUser();
                 alert('Din användarsession har löpt ut. Vänligen logga in igen för att lägga en beställning');
