@@ -23,18 +23,14 @@ export const DBContextProvider = ({children}) => {
     
     const createOrder = async (cart, user) => {
 
-
       let productDict = Object.assign({}, ...cart.map((product) => ({[product.productId]: product.quantity})));
 
-      const token = sessionStorage.getItem('token');
-
-      const url = `${apiUrl}/api/create-order`;
+      const url = `${apiUrl}/api/order/create-order`;
 
       const result = await fetch(url, {
         method: "POST", 
         headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ "productsQuantity": productDict})
       })
@@ -53,7 +49,7 @@ export const DBContextProvider = ({children}) => {
 
     const searchProducts = async (input) => {
 
-      const url = `${apiUrl}/api/get-products-by-name/${input}`;
+      const url = `${apiUrl}/api/product/get-products-by-name/${input}`;
 
       const result = await fetch(url)
       .then(response => {
@@ -73,7 +69,7 @@ export const DBContextProvider = ({children}) => {
 
     const getCategoryProducts = async (categoryId, categoryName) => {
 
-      const url = `${apiUrl}/api/get-category-by-id/${categoryId}`;
+      const url = `${apiUrl}/api/category/get-category-by-id/${categoryId}`;
 
       const result = await fetch(url)
       .then(response => {
@@ -92,7 +88,7 @@ export const DBContextProvider = ({children}) => {
     }
 
     const getAllProducts = async () => {
-      const url = `${apiUrl}/api/get-all-products`;
+      const url = `${apiUrl}/api/product/get-all-products`;
 
       const products = await fetch(url)
       .then(response => {

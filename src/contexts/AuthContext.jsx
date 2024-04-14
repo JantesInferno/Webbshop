@@ -11,7 +11,7 @@ export const AuthContextProvider = ({children}) => {
 
     const createUserAccount = async (name, username, email, password, address, city) => {
 
-      const url = `${apiUrl}/api/register`;
+      const url = `${apiUrl}/api/user/register`;
 
       const result = await fetch(url, {
         method: "POST", 
@@ -28,9 +28,6 @@ export const AuthContextProvider = ({children}) => {
         })
       })
       .then(response => {
-        console.log(response);
-        console.log(response.ok);
-        console.log(response.json());
         if (response.ok)
           return 200;
         else
@@ -46,7 +43,7 @@ export const AuthContextProvider = ({children}) => {
     
     const signInUser = async (username, password) => {
 
-      const url = `${apiUrl}/api/login`;
+      const url = `${apiUrl}/api/user/login`;
 
       const result = await fetch(url, {
         method: "POST", 
@@ -65,18 +62,29 @@ export const AuthContextProvider = ({children}) => {
         return 500;
       });
 
-      setCurrentUser(result.user);
+      setCurrentUser(result);
 
-      sessionStorage.setItem('token', result.token)
-      sessionStorage.setItem('user', result.user);
-
-      return result.token ? 200 : result;
+      return result.username ? 200 : result;
     }
 
-    const signOutUser = () => {
+    const signOutUser = async () => {
+
+      const url = `${apiUrl}/api/user/logout`;
+
       setCurrentUser(null);
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('user');
+
+      await fetch(url, {
+        method: "GET",
+      })
+      .then(response => {
+        if (response.ok)
+          console.log(response.json());
+        else
+          console.log(response.status);
+      })
+      .catch(error => {
+        console.log(500);
+      });
     }
 
     return (
