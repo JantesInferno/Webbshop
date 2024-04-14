@@ -21,7 +21,7 @@ export const DBContextProvider = ({children}) => {
     }, [])
 
     
-    const createOrder = async (cart, user) => {
+    const createOrder = async (cart) => {
 
       let productDict = Object.assign({}, ...cart.map((product) => ({[product.productId]: product.quantity})));
 
@@ -32,6 +32,7 @@ export const DBContextProvider = ({children}) => {
         headers: {
             "Content-Type": "application/json",
         },
+        credentials: 'include',
         body: JSON.stringify({ "productsQuantity": productDict})
       })
       .then(response => {

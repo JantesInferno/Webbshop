@@ -48,7 +48,7 @@ const Navbar = () => {
 
     const handleOrder = async () => {
         if (currentUser != null) {
-            const result = await createOrder(cart, currentUser);
+            const result = await createOrder(cart);
 
             console.log(result);
 
