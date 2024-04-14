@@ -32,7 +32,6 @@ export const DBContextProvider = ({children}) => {
         headers: {
             "Content-Type": "application/json",
         },
-        credentials: 'include',
         body: JSON.stringify({ "productsQuantity": productDict})
       })
       .then(response => {
