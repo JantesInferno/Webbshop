@@ -75,7 +75,7 @@ export const AuthContextProvider = ({children}) => {
       setCurrentUser(null);
 
       await fetch(url, {
-        method: "GET",
+        method: "POST",
       })
       .then(response => {
         if (response.ok)
