@@ -20,11 +20,14 @@ import { NavbarContext } from '../../contexts/NavbarContext';
 import { DBContext } from '../../contexts/DBContext';
 import { AuthContext } from '../../contexts/AuthContext';
 
+import { IconButton } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+
 const Navbar = () => {
 
     const {cart, setCart, addItemToQuantity, removeFromCart, removeItemFromQuantity} = useContext(CartContext);
     const {anchorCart, handleOpenCartMenu, handleCloseCartMenu, handleOpenLoginMenu} = useContext(NavbarContext);
-    const {createOrder, searchProducts, getAllProducts} = useContext(DBContext);
+    const {createOrder, searchProducts, getAllProducts, handleDrawerToggle} = useContext(DBContext);
     const {signOutUser, currentUser} = useContext(AuthContext);
 
     const [numOfCartItems, setNumOfCartItems] = useState(0);
@@ -184,6 +187,7 @@ const Navbar = () => {
                     
             </div>
             { window.matchMedia("(max-width: 767px)").matches ? (
+
                 <div style={{
                     display: 'block',
                     width: '100%',
@@ -192,6 +196,16 @@ const Navbar = () => {
                     alignItems: 'center'
                     }}>
                         <div style={{ display: 'flex'}}>
+                        <IconButton
+                        display="flex"
+                        color="inherit"
+                        aria-label="open drawer"
+                        edge="start"
+                        onClick={handleDrawerToggle}
+                        sx={{ ml: 1, display: { sm: 'none' } }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
                             <SearchBar />
                         </div>
                 </div>
