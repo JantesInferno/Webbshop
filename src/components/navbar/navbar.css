@@ -15,11 +15,11 @@
   align-items: center;
 }
 .navbarContainer .icons {
-  margin-right: 8px;
+  margin-right: 24px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   width: auto;
-  gap: 5%;
+  gap: 20%;
   cursor: pointer;
 }
 .navbarContainer .icons .shoppingCartIcon {

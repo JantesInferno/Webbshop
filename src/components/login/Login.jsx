@@ -64,10 +64,10 @@ const Login = () => {
                 onClose={handleCloseLoginMenu}
                 PaperProps={{
                     sx: {
-                        width: 400,
+                        width: window.matchMedia("(min-width: 900px)").matches ? 400 : 'calc(100vw - 16px)',
                         height: 'auto',
                         top: 108,
-                        marginRight: '25px',
+                        marginRight: window.matchMedia("(min-width: 900px)").matches ? '25px' : '8px',
                         bgcolor: 'primary.main'
                     }
                 }}

@@ -109,11 +109,9 @@ const Navbar = () => {
                             </>
                         ) : (
                             <>
-                            <Button className='loginIcon' variant="contained" sx={{ display: { xs: 'none', md: 'flex'}, color: 'primary.main', bgcolor: 'secondary.main', border: 'none', transition: '0.3s', ':hover': { bgcolor: 'action.main', color: 'secondary.main'} }} endIcon={<LoginIcon  />} onClick={handleOpenLoginMenu}>
-                                <Typography variant='h7' textAlign="center" sx={{ fontWeight: 'bold', marginTop: '2%' }}>Logga in</Typography>
-                            </Button>
+                            
                             <Tooltip title="Logga in">
-                                <LoginIcon sx={{ display: { xs: 'flex', md: 'none'}, margin: 'auto auto', width: '40px', height: '40px', padding: '5px', borderRadius: '50%', ':hover': { bgcolor: 'action.main'}}} onClick={handleOpenLoginMenu} />
+                                <LoginIcon sx={{ marginRight: '8px',width: '40px', height: '40px', padding: '5px', borderRadius: '50%', ':hover': { bgcolor: 'action.main'}}} onClick={handleOpenLoginMenu} />
                             </Tooltip>
                             </>
                         )}
@@ -127,10 +125,10 @@ const Navbar = () => {
                     onClose={handleCloseCartMenu}
                     PaperProps={{
                         sx: {
-                            width: 400,
+                            width: window.matchMedia("(min-width: 900px)").matches ? 400 : 'calc(100vw - 16px)',
                             height: 'auto',
                             top: 108,
-                            marginRight: '25px',
+                            marginRight: window.matchMedia("(min-width: 900px)").matches ? '25px' : '8px',
                             bgcolor: 'primary.main'
                         }
                     }}
