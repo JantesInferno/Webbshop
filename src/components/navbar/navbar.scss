@@ -1,7 +1,9 @@
 
 .logo {
     margin-left: 18px;
-    width: 250px;
+    width: 25%;
+    min-width: 200px;
+    max-width: 250px;
     height: auto;
 }
 
@@ -15,11 +17,11 @@
     align-items: center;
 
     .icons {
-        margin-right: 8px;
+        margin-right: 24px;
         display: flex;
-        justify-content: space-evenly;
-        width: 20%;
-        gap: 5%;
+        justify-content: space-around;
+        width: auto;
+        gap: 20%;
         cursor: pointer;
 
         .shoppingCartIcon {
