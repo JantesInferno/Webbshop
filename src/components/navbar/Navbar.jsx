@@ -87,7 +87,7 @@ const Navbar = () => {
                  ( null
                 )}
                     
-                    <div className='icons'>
+                    <div className='icons' >
                         <Tooltip title="Öppna varukorgen">
                             <Badge badgeContent={numOfCartItems} sx={{
                                 "& .MuiBadge-badge": {
@@ -95,26 +95,27 @@ const Navbar = () => {
                                 backgroundColor: "action.main"
                                 }
                             }}>
-                                <ShoppingCartIcon className='shoppingCartIcon' color='secondary' fontSize='large' onClick={handleOpenCartMenu}/>
+                                <ShoppingCartIcon className='shoppingCartIcon' color='secondary' sx={{ height: {xs: '30px', sm: '40px'}, width: {xs: '30px', sm: '40px'} }} onClick={handleOpenCartMenu}/>
                             </Badge>
                         </Tooltip>
+
 
                         {currentUser != null && currentUser.name != null ? (
                             <>
                             <Tooltip title={currentUser.displayName}>
-                                <Avatar sx={{ bgcolor: 'action.main', padding: '5px', height: '40px', width: '40px'}}>
+                                <Avatar sx={{ bgcolor: 'action.main', padding: '5px', height: {xs: '30px', sm: '40px'}, width: {xs: '30px', sm: '40px'}}}>
                                     {currentUser.name.split(/\W+/).length === 2 ? `${currentUser.name.split(' ')[0][0]}${currentUser.name.split(' ')[1][0]}` : `${currentUser.name.split(' ')[0][0]}`}
                                 </Avatar>
                             </Tooltip>
                             <Tooltip title="Logga ut">
-                                <LogoutIcon className='logOutIcon' onClick={signOutUser} />
+                                <LogoutIcon className='logOutIcon' sx={{ height: {xs: '30px', sm: '40px'}, width: {xs: '30px', sm: '40px'} }} onClick={signOutUser} />
                             </Tooltip>
                             </>
                         ) : (
                             <>
                             
                             <Tooltip title="Logga in">
-                                <LoginIcon sx={{ marginRight: '8px',width: '40px', height: '40px', padding: '5px', borderRadius: '50%', ':hover': { bgcolor: 'action.main'}}} onClick={handleOpenLoginMenu} />
+                                <LoginIcon sx={{ marginRight: '8px', height: {xs: '30px', sm: '40px'}, width: {xs: '30px', sm: '40px'}, padding: '5px', borderRadius: '50%', ':hover': { bgcolor: 'action.main'}}} onClick={handleOpenLoginMenu} />
                             </Tooltip>
                             </>
                         )}
@@ -191,6 +192,7 @@ const Navbar = () => {
                 <div style={{
                     display: 'block',
                     width: '100%',
+                    height: 'auto',
                     backgroundColor: '#111',
                     justifyContent: 'space-between',
                     alignItems: 'center'
@@ -206,8 +208,9 @@ const Navbar = () => {
                         >
                             <MenuIcon />
                         </IconButton>
-                        </div>
                         <SearchBar />
+                        </div>
+                       
                 </div>
                 ) 
                 : 
