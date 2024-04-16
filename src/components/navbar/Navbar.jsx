@@ -200,12 +200,11 @@ const Navbar = () => {
                     }}>
                         <div style={{ display: 'flex'}}>
                         <IconButton
-                        display="flex"
                         color="inherit"
                         aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}
-                        sx={{ ml: 1, display: { sm: 'none' } }}
+                        sx={{ position: 'absolute', mt: 1, ml: 1, display: { sm: 'none' } }}
                         >
                             <MenuIcon />
                         </IconButton>
