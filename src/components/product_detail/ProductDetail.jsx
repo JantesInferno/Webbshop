@@ -47,7 +47,6 @@ const ProductDetail = () => {
                             }}>
                             {product ? product.description : null}
                         </Typography>
-                        <Typography variant={'h6'} color={'#71bf7b'} textAlign={'center'} paddingX={'16px'} paddingTop={'16px'}>{product ? product.price : null} kr</Typography>
                     </CardContent>
                     <IconButton sx={{borderRadius: '0', width: '100%', gap: '5px', bgcolor: 'action.main', ':hover': {bgcolor: '#123d1e' }}} 
                         onClick={() => addToCart(product)}>
@@ -55,7 +54,7 @@ const ProductDetail = () => {
                         {/* OM KUND KÖPT MER ÄN QUANTITY -> ÄNDRA KNAPPEN TILL "SLUT I LAGER" */}
 
                         <ShoppingCartIcon className='shoppingCartIcon' color='secondary' fontSize='small' sx={{ p: 0}}/>
-                        <Typography color='secondary'>Köp</Typography>
+                        <Typography color='secondary'>Köp - {product ? product.price : 'N/A'} kr</Typography>
                     </IconButton>
             </Card>
         </>

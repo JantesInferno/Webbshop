@@ -1,1 +1,1 @@
-{"version":3,"sources":["productdetail.scss","productdetail.css"],"names":[],"mappings":"AAEA;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,aAAA;ACDJ;ADGI;EACI,gBAAA;EACA,aAAA;EACA,YAAA;EACA,WAAA;EACA,gBAAA;ACDR","file":"productdetail.css"}
+{"version":3,"sources":["productdetail.scss","productdetail.css"],"names":[],"mappings":"AAEA;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,aAAA;ACDJ;ADGI;EACI,gBAAA;EACA,aAAA;EACA,YAAA;EACA,iBAAA;EACA,WAAA;EACA,gBAAA;ACDR","file":"productdetail.css"}
