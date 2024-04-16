@@ -100,6 +100,7 @@ const Navbar = () => {
                         </Tooltip>
 
 
+
                         {currentUser != null && currentUser.name != null ? (
                             <>
                             <Tooltip title={currentUser.displayName}>
@@ -192,9 +193,9 @@ const Navbar = () => {
                 <div style={{
                     display: 'block',
                     width: '100%',
-                    height: 'auto',
+                    height: '60px',
                     backgroundColor: '#111',
-                    justifyContent: 'space-between',
+                    justifyContent: 'center',
                     alignItems: 'center'
                     }}>
                         <div style={{ display: 'flex'}}>
