@@ -5,6 +5,11 @@ import { useContext, useEffect } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import { useParams } from "react-router-dom";
 import { DBContext } from "../../contexts/DBContext";
+import { IconButton } from '@mui/material';
+import { NavbarContext } from "../../contexts/NavbarContext";
+import MenuIcon from '@mui/icons-material/Menu';
+import { Typography } from '@mui/material';
+
 
 const categories = [
     {url: 'bildskarmar' , name: 'Bildskärmar', id: 1},
@@ -19,6 +24,7 @@ const LayoutContainer = () => {
     const {category} = useParams();
     const {data, searchTitle, getCategoryProducts} = useContext(DBContext);
     const {addToCart} = useContext(CartContext);
+    const {handleDrawerToggle} = useContext(DBContext);
 
     useEffect(() => {
         if (category != null) {
@@ -32,6 +38,21 @@ const LayoutContainer = () => {
 
     return(
         <>
+        <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{ mt: -3.3,ml: 1, display: { sm: 'none' } }}
+            >
+            <MenuIcon />
+            <Typography variant='h6' textAlign={'left'} color={'secondary'} margin={'6%'}>Kategorier</Typography>
+        </IconButton>
+
+        <Container sx={{marginY: '4%', marginX: '2%'}}>
+                <h3 style={{marginTop: '-4.7%', marginLeft: '2px'}}>Visar alla produkter</h3>
+            
+        </Container>
         {data != null && data.length > 0 ? (
             <Container sx={{marginY: '4%', marginX: '2%'}}>
                 <h3 style={{marginTop: '-4.7%', marginLeft: '2px'}}>{searchTitle}</h3>
