@@ -16,6 +16,7 @@ export const NavbarContextProvider = ({children}) => {
     const navigate = useNavigate();
 
 
+
     const handleAutoComplete = (e) => {
         setShowAutoComplete(false);
         if (e.keyCode === 13) {
@@ -55,7 +56,6 @@ export const NavbarContextProvider = ({children}) => {
         setAnchorLogin(null);
     };
 
-  
     return (
         <NavbarContext.Provider value={{ 
             anchorCart, setAnchorCart,

@@ -9,13 +9,11 @@ import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { DBContext } from '../../contexts/DBContext';
+import { NavbarContext } from '../../contexts/NavbarContext';
 
 const SideNavDrawer = () => {
 
-    const { getCategoryProducts } = useContext(DBContext);
-
-    const [mobileOpen, setMobileOpen] = useState(false);
-    const [isClosing, setIsClosing] = useState(false);
+    const { mobileOpen, setMobileOpen, isClosing, setIsClosing, handleDrawerToggle } = useContext(DBContext);
 
     const handleDrawerClose = () => {
         setIsClosing(true);
@@ -24,12 +22,6 @@ const SideNavDrawer = () => {
 
     const handleDrawerTransitionEnd = () => {
         setIsClosing(false);
-    };
-
-    const handleDrawerToggle = () => {
-        if (!isClosing) {
-        setMobileOpen(!mobileOpen);
-        }
     };
     
     const navigate = useNavigate();
@@ -101,17 +93,6 @@ const SideNavDrawer = () => {
 
     return(
         <>
-            <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={handleDrawerToggle}
-                sx={{ ml: 1, display: { sm: 'none' } }}
-            >
-                <MenuIcon />
-                <Typography variant='h6' textAlign={'left'} color={'secondary'} margin={'6%'}>Kategorier</Typography>
-            </IconButton>
-
 
             <Drawer
                 variant="temporary"
