@@ -49,9 +49,6 @@ const LayoutContainer = () => {
             <Typography variant='h6' textAlign={'left'} color={'secondary'} margin={'6%'}>Kategorier</Typography>
         </IconButton>
 
-        <Container sx={{marginY: '4%', marginX: '2%'}}>
-                <h3 style={{marginTop: '-4.7%', marginLeft: '2px'}}>Visar alla produkter</h3>
-            
         </Container>
         {data != null && data.length > 0 ? (
             <Container sx={{marginY: '4%', marginX: '2%'}}>
