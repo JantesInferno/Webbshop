@@ -1,6 +1,9 @@
 .searchBarContainer {
   position: relative;
-  width: 25%;
+  width: 40%;
+  min-width: 280px;
+  margin: 0 auto;
+  padding: 5px;
   height: 100%;
   top: 25%;
 }

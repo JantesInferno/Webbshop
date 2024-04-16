@@ -77,7 +77,12 @@ const Navbar = () => {
                 <img src={logo} className='logo' onClick={getAllProducts} />
                 </Link>
 
-                <SearchBar />
+                { window.matchMedia("(min-width: 768px)").matches ? (
+                    <SearchBar />
+                 ) 
+                 : 
+                 ( null
+                )}
                     
                     <div className='icons'>
                         <Tooltip title="Öppna varukorgen">
@@ -103,9 +108,14 @@ const Navbar = () => {
                             </Tooltip>
                             </>
                         ) : (
-                            <Button className='loginIcon' variant="contained" sx={{ textTransform: 'none', color: 'primary.main', bgcolor: 'secondary.main', border: 'none', transition: '0.3s', ':hover': { bgcolor: 'action.main', color: 'secondary.main'} }} endIcon={<LoginIcon  />} onClick={handleOpenLoginMenu}>
-                                <Typography textAlign="center" sx={{ fontWeight: 'bold' }}>Logga in</Typography>
+                            <>
+                            <Button className='loginIcon' variant="contained" sx={{ display: { xs: 'none', md: 'flex'}, color: 'primary.main', bgcolor: 'secondary.main', border: 'none', transition: '0.3s', ':hover': { bgcolor: 'action.main', color: 'secondary.main'} }} endIcon={<LoginIcon  />} onClick={handleOpenLoginMenu}>
+                                <Typography variant='h7' textAlign="center" sx={{ fontWeight: 'bold', marginTop: '2%' }}>Logga in</Typography>
                             </Button>
+                            <Tooltip title="Logga in">
+                                <LoginIcon sx={{ display: { xs: 'flex', md: 'none'}, margin: 'auto auto', width: '40px', height: '40px', padding: '5px', borderRadius: '50%', ':hover': { bgcolor: 'action.main'}}} onClick={handleOpenLoginMenu} />
+                            </Tooltip>
+                            </>
                         )}
                     </div>
                     
@@ -168,10 +178,29 @@ const Navbar = () => {
                         >
                             Lägg beställning
                         </Button>
+                        
                     </Drawer>
 
                     <Login />
+
+                    
             </div>
+            { window.matchMedia("(max-width: 767px)").matches ? (
+                <div style={{
+                    display: 'block',
+                    width: '100%',
+                    backgroundColor: '#111',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                    }}>
+                        <div style={{ display: 'flex'}}>
+                            <SearchBar />
+                        </div>
+                </div>
+                ) 
+                : 
+                ( null
+            )}
         </>
     )
 }
