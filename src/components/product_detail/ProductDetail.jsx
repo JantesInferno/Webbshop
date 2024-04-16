@@ -18,7 +18,7 @@ const ProductDetail = () => {
 
     return(
         <>
-            <Card elevation={5} sx={{ bgcolor: 'primary.main', color: 'secondary.main', border: '1px solid #111', width: '50%', margin: 'auto auto' }}>
+            <Card elevation={5} sx={{ bgcolor: 'primary.main', color: 'secondary.main', border: '1px solid #111', width: { xs: 'calc(100% - 16px)', sm: '50%'}, margin: 'auto auto' }}>
                     <div className="productDetailImageContainer">
                             <img src={product ? product.imageURL : null} className="productDetailImage"/>
                     </div>

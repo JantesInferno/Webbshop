@@ -206,8 +206,8 @@ const Navbar = () => {
                         >
                             <MenuIcon />
                         </IconButton>
-                            <SearchBar />
                         </div>
+                        <SearchBar />
                 </div>
                 ) 
                 : 
