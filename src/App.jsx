@@ -15,9 +15,9 @@ function App() {
     <>
       <NavbarContextProvider>
         <Navbar />
-      </NavbarContextProvider>
-      <div style={{ display: 'flex'}}>
         <SideNavDrawer />
+        </NavbarContextProvider>
+        <div style={{ display: 'flex'}}>
         <Routes>
           <Route path='/' element={<LayoutContainer />} >
             <Route path='/:category' element={<LayoutContainer />} />
@@ -28,7 +28,7 @@ function App() {
           <Route path='/customerservice' element={<CustomerService />} />
           <Route path="*" element={<LayoutContainer /> } />
         </Routes>
-      </div>   
+        </div>   
     </>
   )
 }
