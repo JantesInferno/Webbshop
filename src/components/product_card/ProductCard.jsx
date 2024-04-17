@@ -17,7 +17,7 @@ const ProductCard = ({ product, addToCart }) => {
                     </div>
                     <Tooltip title={product.title}>
                         <div className='cardHeader'>
-                            <Typography variant={'body1'} color={'primary'} textAlign={'left'} paddingX={'16px'} paddingTop={'16px'} sx={{
+                            <Typography variant={'body1'} color={'primary'} textAlign={'center'} paddingX={'16px'} paddingTop={'16px'} sx={{
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
                                 display: '-webkit-box',
@@ -39,7 +39,7 @@ const ProductCard = ({ product, addToCart }) => {
                             "& .MuiCardHeader-content": {
                                 overflow: "hidden"
                             }
-                            }} textAlign="left">
+                            }} textAlign="center">
                             {product.subtitle}
                         </Typography>
                         <Typography variant={'h6'} color={'#71bf7b'} textAlign={'center'} paddingX={'16px'} paddingTop={'16px'}>{product.price} kr</Typography>

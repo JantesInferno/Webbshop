@@ -12,6 +12,8 @@ export const NavbarContextProvider = ({children}) => {
     const [anchorLogin, setAnchorLogin] = useState(null);
     const [suggestions, setSuggestions] = useState([]);
     const [showAutoComplete, setShowAutoComplete] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const [isClosing, setIsClosing] = useState(false);
 
     const navigate = useNavigate();
 
@@ -56,6 +58,12 @@ export const NavbarContextProvider = ({children}) => {
         setAnchorLogin(null);
     };
 
+    const handleDrawerToggle = () => {
+        if (!isClosing) {
+        setMobileOpen(!mobileOpen);
+        }
+    };
+
     return (
         <NavbarContext.Provider value={{ 
             anchorCart, setAnchorCart,
@@ -65,6 +73,9 @@ export const NavbarContextProvider = ({children}) => {
             handleAutoComplete,
             handleOpenCartMenu, handleCloseCartMenu,
             handleOpenLoginMenu, handleCloseLoginMenu,
+            mobileOpen, setMobileOpen,
+            isClosing, setIsClosing,
+            handleDrawerToggle
         }}>
             {children}
         </NavbarContext.Provider>
