@@ -49,7 +49,7 @@ const SearchBar = () => {
                 { showAutoComplete ? 
                   <List sx={{ bgcolor: 'primary.main', outline: '2px solid white', padding: '0px 0px', borderRadius: '0 0 25px 25px'}}>
                     {
-                      suggestions.map((item) => (
+                      suggestions.map((item, i, arr) => (
                         <div key={item.id}>
                           <ListItem className='listItem' button sx={{ 
                             border: '5px solid transparent',
@@ -64,7 +64,10 @@ const SearchBar = () => {
                             <ListItemText primary={item.title} sx={{ margin: '0 auto', color: 'white', padding: '5px'}} />
                             <ListItemIcon><SearchIcon sx={{ color: '#fff', marginLeft: '47%' }}/></ListItemIcon>
                           </ListItem>
-                          <Divider variant='middle' sx={{ margin: '1px', bgcolor: 'secondary.main' }} />
+                          { (arr.length - 1 === i) ? (
+                            null
+                          ) : ( <Divider variant='middle' sx={{ margin: '1px', bgcolor: 'secondary.main' }} />
+                          )}
                         </div>
                       ))
                     }

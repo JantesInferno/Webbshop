@@ -13,7 +13,7 @@ import { NavbarContext } from '../../contexts/NavbarContext';
 
 const SideNavDrawer = () => {
 
-    const { mobileOpen, setMobileOpen, isClosing, setIsClosing, handleDrawerToggle } = useContext(DBContext);
+    const { mobileOpen, setMobileOpen, isClosing, setIsClosing, handleDrawerToggle } = useContext(NavbarContext);
 
     const handleDrawerClose = () => {
         setIsClosing(true);

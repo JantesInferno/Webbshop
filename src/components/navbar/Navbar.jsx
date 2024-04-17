@@ -26,8 +26,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 const Navbar = () => {
 
     const {cart, setCart, addItemToQuantity, removeFromCart, removeItemFromQuantity} = useContext(CartContext);
-    const {anchorCart, handleOpenCartMenu, handleCloseCartMenu, handleOpenLoginMenu} = useContext(NavbarContext);
-    const {createOrder, searchProducts, getAllProducts, handleDrawerToggle} = useContext(DBContext);
+    const {anchorCart, handleOpenCartMenu, handleCloseCartMenu, handleOpenLoginMenu, handleDrawerToggle} = useContext(NavbarContext);
+    const {createOrder, searchProducts, getAllProducts} = useContext(DBContext);
     const {signOutUser, currentUser} = useContext(AuthContext);
 
     const [numOfCartItems, setNumOfCartItems] = useState(0);
@@ -69,7 +69,7 @@ const Navbar = () => {
 
     const handleCartClick = (product) => {
         searchProducts(product.title);
-        navigate(`/product/${product.id}`);
+        navigate(`/product/${product.productId}`);
     }
 
     return(

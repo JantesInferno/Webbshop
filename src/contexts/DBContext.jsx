@@ -13,8 +13,6 @@ export const DBContextProvider = ({children}) => {
     const [data, setData] = useState([]);
     const [productsAutocomplete, setProductsAutocomplete] = useState([]);
     const [searchTitle, setSearchTitle] = useState('');
-    const [mobileOpen, setMobileOpen] = useState(false);
-    const [isClosing, setIsClosing] = useState(false);
 
     const location = useLocation();
 
@@ -22,11 +20,6 @@ export const DBContextProvider = ({children}) => {
         getAllProducts();
     }, [])
 
-    const handleDrawerToggle = () => {
-      if (!isClosing) {
-      setMobileOpen(!mobileOpen);
-      }
-  };
 
     const createOrder = async (cart) => {
 
@@ -130,10 +123,7 @@ export const DBContextProvider = ({children}) => {
             getCategoryProducts, 
             getAllProducts,
             searchProducts,
-            createOrder,
-            mobileOpen, setMobileOpen,
-            isClosing, setIsClosing,
-            handleDrawerToggle
+            createOrder
           }}>
         {children}
       </DBContext.Provider>

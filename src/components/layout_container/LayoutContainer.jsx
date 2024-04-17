@@ -39,7 +39,12 @@ const LayoutContainer = () => {
         <>
         {data != null && data.length > 0 ? (
             <Container sx={{marginY: '4%', marginX: '2%'}}>
-                <h3 style={{marginTop: '-4.7%', marginLeft: '2px'}}>{searchTitle}</h3>
+                { window.matchMedia("(min-width: 768px)").matches ? (
+                    <h3 style={{marginTop: '-4.7%', marginLeft: '2px'}}>{searchTitle}</h3>
+                 ) 
+                 : 
+                 ( <h3 style={{marginTop: '-2%', marginLeft: '2px'}}>{searchTitle}</h3>
+                )}
                 <Grid container spacing={2} >
                     {
                         data.map(d => (
